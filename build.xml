@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="UAM Asset Manager" default="test" basedir=".">
+
+	<property name="basedir" value="${project.basedir}"/>
+	<property name="builddir" value="${basedir}/build"/>
+
+	<target name="clean">
+		<rmdir dir="docs" />
+		<rmdir dir="tests" />
+	</target>
+
+	<target name="test">
+		<mkdir dir="tests" />
+		<exec command="vendor\bin\phpunit.bat --group=application --log-junit=tests/report.xml --bootstrap=index.php modules/unittest/tests.php"
+			  passthru="true" />
+	</target>
+
+	<target name="test-report" depends="test">
+		<phpunitreport infile="tests/report.xml" todir="tests" format="frames" />
+	</target>
+
+	<target name="style">
+		<phpcodesniffer standard="../coding-standards/PHP/CodeSniffer/Standards/Kohana" showWarnings="true">
+			<fileset dir="${basedir}/application">
+				<include name="**/*.php" />
+			</fileset>
+			<formatter type="full" outfile="tests/style_report.txt"/>
+		</phpcodesniffer>
+	</target>
+
+	<target name="docs">
+		<exec command="vendor/bin/phpdoc.php.bat --target='docs' 
+			--template=new-black
+			--directory='application/classes,application/tests' 
+			--ignore='application/logs/,application/cache/' 
+			--title='${project.name}' 
+			--defaultpackagename='${project.name}'" />
+	</target>
+
+</project>

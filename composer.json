@@ -1,0 +1,24 @@
+{
+	"name": "samwilson/itemdb",
+	"description": "An item database with records.",
+	"type": "project",
+	"license": "GPL-3.0+",
+	"require": {
+		"kohana/core": "~3.3",
+		"kohana/auth": "~3.3",
+		"kohana/cache": "~3.3",
+		"kohana/database": "~3.3",
+		"kohana/orm": "~3.3",
+		"kohana/minion": "~3.3",
+		"samwilson/kohana_datalog": "dev-3.3/master",
+		"samwilson/kohana_kadldap": "~1.0",
+		"samwilson/kohana_mailqueue": "0.3.0",
+		"dflydev/markdown": "~1.0"
+	},
+	"require-dev": {
+		"kohana/unittest": "~3.0",
+		"kohana/userguide": "~3.3",
+		"squizlabs/php_codesniffer": "*",
+		"phing/phing": "*"
+	}
+}
