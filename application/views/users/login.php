@@ -4,15 +4,15 @@
 			<h2>Log In</h2>
 			<form action="<?php echo Route::url('login') . URL::query() ?>" method="post" class="login-form" role="form">
 				<p class="form-group">
-					<?php echo form::label('username', 'Username:') ?>
-					<?php echo form::input('username', $username, array('class' => 'form-control initial-focus', 'tabindex'=>1)) ?>
+					<?php echo Form::label('username', 'Username:') ?>
+					<?php echo Form::input('username', $username, array('class' => 'form-control initial-focus', 'tabindex'=>1)) ?>
 				</p>
 				<p class="form-group">
-					<?php echo form::label('password', 'Password:') ?>
-					<?php echo form::password('password', $password, array('class' => 'form-control', 'tabindex'=>2)) ?>
+					<?php echo Form::label('password', 'Password:') ?>
+					<?php echo Form::password('password', $password, array('class' => 'form-control', 'tabindex'=>2)) ?>
 				</p>
 				<p class="form-group">
-					<?php echo form::submit('login', 'Log in', array('class' => 'btn btn-default', 'tabindex'=>3)) ?>
+					<?php echo Form::submit('login', 'Log in', array('class' => 'btn btn-default', 'tabindex'=>3)) ?>
 				</p>
 				<p class="help-note">
 					If you have any problems, please read the
