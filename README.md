@@ -7,8 +7,10 @@ A strange thing indeed. Please ignore for now.
 
 1. Clone the repository
 2. Run `composer install`
-3. Copy `config.dist.php` to `config.php`
-4. Set up URL rewriting (see below)
+3. Copy `config.dist.php` to `config.php` and edit that
+4. Copy `modules/database/config/database.php` to `application/config/database.php` and edit that
+5. Set up URL rewriting (see below)
+6. Run `php index.php upgrade`
 
 ### Example .htaccess for Apache
 

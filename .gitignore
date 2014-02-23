@@ -1,6 +1,5 @@
 /application/logs
 /application/cache
-/application/config
 /modules
 /nbproject/private
 /vendor

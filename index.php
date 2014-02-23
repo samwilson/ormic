@@ -26,14 +26,14 @@ if ( ! is_dir(APPPATH))
 
 define('MODPATH', DOCROOT.'modules'.DIRECTORY_SEPARATOR);
 define('SYSPATH', DOCROOT.'vendor'.DIRECTORY_SEPARATOR.'kohana'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
-if (!defined('KOHANA_BASE_URL')) define('KOHANA_BASE_URL', '/komodapp/');
-if (!defined('KOHANA_ENVIRONMENT')) define('KOHANA_ENVIRONMENT', 'production');
+if ( ! defined('KOHANA_BASE_URL')) define('KOHANA_BASE_URL', '/itemdb/');
 if (substr(KOHANA_BASE_URL, -1) != '/') 
 {
 	echo 'KOHANA_BASE_URL must have trailing slash';
 	exit(1);
 }
-if (!defined('KOHANA_COOKIE_SALT'))
+if ( ! defined('KOHANA_ENVIRONMENT')) define('KOHANA_ENVIRONMENT', 'production');
+if ( ! defined('KOHANA_COOKIE_SALT') OR KOHANA_COOKIE_SALT=='')
 {
 	echo 'Please define KOHANA_COOKIE_SALT in config.php';
 	exit(1);
