@@ -11,7 +11,11 @@
 
 	<target name="test">
 		<mkdir dir="tests" />
-		<exec command="vendor\bin\phpunit.bat --group=application --log-junit=tests/report.xml --bootstrap=index.php modules/unittest/tests.php"
+		<exec command="vendor\bin\phpunit.bat
+			--group=application
+			--log-junit=tests/report.xml
+			--testdox-html=tests/testdox.html
+			--bootstrap=index.php modules/unittest/tests.php"
 			  passthru="true" />
 	</target>
 

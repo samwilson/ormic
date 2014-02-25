@@ -1,5 +1,5 @@
-ItemDB
-======
+Ormic
+=====
 
 A strange thing indeed. Please ignore for now.
 
@@ -20,9 +20,3 @@ A strange thing indeed. Please ignore for now.
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule .* index.php/$0 [PT]
 
-## Conventions
-
-Database tables for 'through' many-to-many relationships:
-* only have two columns,
-* don't have model classes,
-* have `_2_` in their name.

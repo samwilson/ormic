@@ -8,22 +8,20 @@ Route::set('logout', 'logout')->defaults(array(
 	'controller' => 'users',
 	'action' => 'logout',
 ));
-Route::set('items', 'items')->defaults(array(
-	'controller' => 'items',
-	'action' => 'home',
+
+Route::set('ormic/view', '<type>/<id>', array(
+	'id' => '[0-9]+'
+))->defaults(array(
+	'controller' => 'ormic',
+	'action' => 'view',
 ));
-Route::set('item/edit', '(<id>/)edit')->defaults(array(
-	'controller' => 'items',
-	'action' => 'edit',
+Route::set('ormic', '<type>(/<id>)(/<action>)', array(
+	'id' => '[0-9]+'
+))->defaults(array(
+	'controller' => 'ormic',
+	'action' => 'index',
 ));
-Route::set('item/new', 'new')->defaults(array(
-	'controller' => 'items',
-	'action' => 'edit',
-));
-Route::set('search', 'search(/<term>)')->defaults(array(
-	'controller' => 'search',
-	'action' => 'home',
-));
+
 Route::set('default', '(<controller>(/<action>(/<id>)))')->defaults(array(
 	'controller' => 'dashboard',
 	'action' => 'home',

@@ -26,7 +26,7 @@ if ( ! is_dir(APPPATH))
 
 define('MODPATH', DOCROOT.'modules'.DIRECTORY_SEPARATOR);
 define('SYSPATH', DOCROOT.'vendor'.DIRECTORY_SEPARATOR.'kohana'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
-if ( ! defined('KOHANA_BASE_URL')) define('KOHANA_BASE_URL', '/itemdb/');
+if ( ! defined('KOHANA_BASE_URL')) define('KOHANA_BASE_URL', '/ormic/');
 if (substr(KOHANA_BASE_URL, -1) != '/') 
 {
 	echo 'KOHANA_BASE_URL must have trailing slash';
@@ -122,8 +122,8 @@ foreach (scandir(MODPATH) as $mod)
 {
 	// Ignore disabled modules
 	$disabled = (isset($disabled_modules) AND in_array($mod, $disabled_modules));
-	// Ignore core and any hidden directories and files
-	$nonmodule = ($mod == 'core' OR substr($mod, 0, 1) == '.' OR !is_dir(MODPATH.$mod));
+	// Ignore any hidden directories and files
+	$nonmodule = (substr($mod, 0, 1) == '.' OR !is_dir(MODPATH.$mod));
 	if ($nonmodule OR $disabled)
 	{
 		continue;
@@ -142,7 +142,7 @@ require APPPATH.'/routes.php';
 /**
  * Site title is defined after config and modules have had a chance at at.
  */
-if (!defined('SITE_TITLE')) define('SITE_TITLE', 'ItemDB');
+if (!defined('SITE_TITLE')) define('SITE_TITLE', 'Ormic');
 
 /**
  * Execute the request.
@@ -162,7 +162,7 @@ if (PHP_SAPI == 'cli')
 			else ob_end_clean();
 		}
 		Kohana::modules(Kohana::modules() + array('unittest' => MODPATH.'unittest'));
-		Database::$default = 'testing';
+		//Database::$default = 'testing';
 		return; // Execution will be continued by phpunit
 	}
 
@@ -176,14 +176,8 @@ if (PHP_SAPI == 'cli')
 	/*
 	 * Otherwise, execute the main request.
 	 */
-	try {
-		echo Request::factory(TRUE, array(), FALSE)
-			->execute()
-			->send_headers(TRUE)
-			->body();
-	}
-	catch (Exception $e)
-	{
-		throw new HTTP_Exception_500("Appliation Error", NULL, $e);
-	}
+	echo Request::factory(TRUE, array(), FALSE)
+		->execute()
+		->send_headers(TRUE)
+		->body();
 }

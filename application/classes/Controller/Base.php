@@ -19,9 +19,11 @@ abstract class Controller_Base extends Controller_Template {
 		{
 			$this->view = View::factory("$controller/$action");
 		} else {
-			throw new HTTP_Exception_500("Unable to load view: $controller/$action");
+			throw HTTP_Exception::factory(500, "Unable to load view: $controller/$action");
 		}
-		$this->template->content = $this->view;
+
+		// Menus
+		$this->template->mainmenu = Kohana::$config->load('ormic')->get('mainmenu');
 
 		// Get postponed alerts
 		$this->template->alerts = array();
@@ -31,6 +33,12 @@ abstract class Controller_Base extends Controller_Template {
 		}
 		Session::instance()->set($this->alert_session_key, array());
 
+	}
+
+	public function after()
+	{
+		$this->template->content = $this->view;
+		return parent::after();
 	}
 
 	/**

@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsible-navbar">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -11,17 +11,32 @@
 			<a href="<?= URL::base() ?>" class="navbar-brand"><?= SITE_TITLE ?></a>
 		</div>
 
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<div class="collapse navbar-collapse" id="collapsible-navbar">
 			<ul class="nav navbar-nav">
-				<li><?= HTML::anchor('items', 'Items') ?></li>
-				<li><?= HTML::anchor('records', 'Records') ?></li>
+				<?php foreach (ORMic::menu() as $title => $menu): ?>
+
+					<?php if (is_array($menu)): ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<?=$title?> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+						<?php foreach ($menu as $uri=>$item): ?>
+						<li>
+							<a href="<?=URL::site($uri)?>" class="">
+								<?=$item?>
+							</a>
+						</li>
+						<?php endforeach ?>
+						</ul>
+					</li>
+					<?php else: ?>
+					<li><a href="<?=$menu?>"><?=$menu?></a></li>
+					<?php endif ?>
+
+				<?php endforeach ?>
 			</ul>
-			<form class="navbar-form navbar-right" role="search" action="<?= Route::url('search') ?>" method="get">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Global search">
-				</div>
-				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-			</form>
+
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown"></a>
@@ -48,20 +63,18 @@
 					<a href="#" class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown"></a>
 					<ul class="dropdown-menu">
 						<li>
+							<a href="<?= URL::site('help') ?>">Help</a>
+						</li>
+						<li>
 							<a href="https://github.com/samwilson/ItemDB/issues" target="_blank">
 								<span class="text-danger">Report an issue</span>
 							</a>
 						</li>
-						<?php if (file_exists(DOCROOT . '/tests/index.html')): ?>
+						<?php if (file_exists(DOCROOT . '/tests/testdox.html')): ?>
 							<li>
-								<a href="<?= URL::site('/tests/index.html') ?>" target="_blank">Status of tests</a>
+								<a href="<?= URL::site('/tests/testdox.html') ?>" target="_blank">Test Dox</a>
 							</li>
 						<?php endif ?>
-						<li>
-							<a href="<?= URL::site('admin') ?>">
-								Administration
-							</a>
-						</li>
 					</ul>
 				</li>
 

@@ -4,5 +4,6 @@
 /nbproject/private
 /vendor
 /tests
+/components
 .htaccess
 config.php
