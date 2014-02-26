@@ -1,13 +1,10 @@
 <div class="container-fluid">
-
-	<h1><?=$object_name?> #<?=$model->id?></h1>
-
-	<p><a href="<?=Route::url('ormic',array('type'=>$object_name))?>">Back to list</a></p>
+	<?=$nav->render()?>
 
 	<ul>
-		<?php foreach ($cols as $col=>$details): ?>
+		<?php foreach ($model->table_columns() as $col=>$details): ?>
 		<li>
-			<strong><?=Text::titlecase($col)?>:</strong> <?=$model->$col?>
+			<strong><?=Arr::get($model->labels(),$col)?>:</strong> <?=$model->$col?>
 		</li>
 		<?php endforeach ?>
 	</ul>

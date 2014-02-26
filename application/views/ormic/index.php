@@ -1,8 +1,5 @@
 <div class="container-fluid">
-	<h1>
-		<?=Inflector::plural($object_name)?>
-		<a href="<?= Route::url('ormic', array('type'=>$object_name,'action'=>'edit')) ?>" class="btn btn-default">Add new</a>
-	</h1>
+	<?=$nav->render()?>
 
 	<?php if (count($models)==0):?>
 	<div class="container">
@@ -26,11 +23,11 @@
 					<td><?=$model->$col?></td>
 					<?php endforeach ?>
 					<td>
-						<a href="<?= Route::url('ormic', array('id' => $model->id, 'type'=>$object_name, 'action'=>'edit')) ?>"
+						<a href="<?= Route::url('ormic', array('id' => $model->id, 'type'=>$type, 'action'=>'view')) ?>"
 						   title="View this record">
 							<span class="glyphicon glyphicon-record"></span>
 						</a>
-						<a href="<?= Route::url('ormic', array('id' => $model->id, 'type'=>$object_name, 'action'=>'edit')) ?>"
+						<a href="<?= Route::url('ormic', array('id' => $model->id, 'type'=>$type, 'action'=>'edit')) ?>"
 						   title="Edit this record">
 							<span class="glyphicon glyphicon-edit"></span>
 						</a>

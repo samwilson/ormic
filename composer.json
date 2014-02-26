@@ -1,6 +1,6 @@
 {
-	"name": "samwilson/itemdb",
-	"description": "An item database with records.",
+	"name": "samwilson/ormic",
+	"description": "A thing.",
 	"type": "project",
 	"license": "GPL-3.0+",
 	"require": {
