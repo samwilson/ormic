@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b10faec96e2c6e96c080ba1d82ebc1cd",
+    "hash": "3f4a9571f840063f82f72ba5edbf8d91",
     "packages": [
         {
             "name": "adldap/adldap",
@@ -53,16 +53,16 @@
         },
         {
             "name": "components/bootstrap",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/bootstrap.git",
-                "reference": "6e8250ef03379911c2aa410665ad15b638e2ca14"
+                "reference": "839953cfb830aa27e8fd94404a4a6e02fb38a51a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/bootstrap/zipball/6e8250ef03379911c2aa410665ad15b638e2ca14",
-                "reference": "6e8250ef03379911c2aa410665ad15b638e2ca14",
+                "url": "https://api.github.com/repos/components/bootstrap/zipball/839953cfb830aa27e8fd94404a4a6e02fb38a51a",
+                "reference": "839953cfb830aa27e8fd94404a4a6e02fb38a51a",
                 "shasum": ""
             },
             "require": {
@@ -105,7 +105,7 @@
                 "bootstrap",
                 "css"
             ],
-            "time": "2014-02-02 23:09:56"
+            "time": "2014-02-25 09:50:56"
         },
         {
             "name": "components/jquery",
@@ -961,6 +961,50 @@
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
             "time": "2014-02-11 13:52:09"
+        },
+        {
+            "name": "tomlankhorst/kohana-3.3-mysqli",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomlankhorst/kohana-3.3-mysqli.git",
+                "reference": "8c2cec32cdc19973526c95d942e708e4b40e07a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomlankhorst/kohana-3.3-mysqli/zipball/8c2cec32cdc19973526c95d942e708e4b40e07a8",
+                "reference": "8c2cec32cdc19973526c95d942e708e4b40e07a8",
+                "shasum": ""
+            },
+            "require": {
+                "kohana/database": "v3.3.1"
+            },
+            "type": "kohana-module",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Lankhorst",
+                    "homepage": "http://tomlankhorst.nl/",
+                    "role": "developer"
+                }
+            ],
+            "description": "Kohana 3.3 MySQLi driver.",
+            "homepage": "https://github.com/tomlankhorst/kohana-3.3-mysqli",
+            "keywords": [
+                "databases",
+                "kohana",
+                "mysql",
+                "mysqli"
+            ],
+            "support": {
+                "forum": "http://forum.kohanaframework.org",
+                "irc": "irc://irc.freenode.net/kohana",
+                "source": "https://github.com/tomlankhorst/kohana-3.3-mysqli",
+                "issues": "https://github.com/tomlankhorst/kohana-3.3-mysqli/issues"
+            },
+            "time": "2014-01-31 16:46:06"
         }
     ],
     "packages-dev": [
@@ -1602,7 +1646,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "samwilson/kohana_datalog": 20
+        "samwilson/kohana_datalog": 20,
+        "tomlankhorst/kohana-3.3-mysqli": 20
     },
     "platform": [
 

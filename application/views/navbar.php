@@ -13,7 +13,7 @@
 
 		<div class="collapse navbar-collapse" id="collapsible-navbar">
 			<ul class="nav navbar-nav">
-				<?php foreach (ORMic::menu() as $title => $menu): ?>
+				<?php foreach (Ormic::menu() as $title => $menu): ?>
 
 					<?php if (is_array($menu)): ?>
 					<li class="dropdown">

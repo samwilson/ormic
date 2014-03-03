@@ -22,7 +22,7 @@ class Text extends Kohana_Text {
 		else
 		{
 			$out = ucwords(preg_replace('|_|', ' ', $value));
-			foreach ($replacements[$format] as $search => $replacement)
+			foreach (Arr::get($replacements, $format, array()) as $search => $replacement)
 			{
 				$out = preg_replace("|\b$search\b|i", $replacement, $out);
 			}

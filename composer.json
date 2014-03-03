@@ -14,12 +14,19 @@
 		"samwilson/kohana_kadldap": "~1.0",
 		"samwilson/kohana_mailqueue": "0.3.0",
 		"dflydev/markdown": "~1.0",
-		"eternicode/bootstrap-datepicker": "1.3.0"
+		"eternicode/bootstrap-datepicker": "1.3.0",
+		"tomlankhorst/kohana-3.3-mysqli": "dev-master"
 	},
 	"require-dev": {
 		"kohana/unittest": "~3.0",
 		"kohana/userguide": "~3.3",
 		"squizlabs/php_codesniffer": "*",
 		"phing/phing": "*"
-	}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/tomlankhorst/kohana-3.3-mysqli.git"
+		}
+	]
 }
