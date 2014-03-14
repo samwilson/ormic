@@ -28,6 +28,44 @@ class ORM extends Kohana_ORM {
 		return $this->_related($poss_alias);
 	}
 
+	public function candidate_key()
+	{
+		return $this->pk();
+	}
+
+	/**
+	 * Get a belongs-to relationship array, if the foreign key is known.
+	 * This may need some more thought.
+	 * @param string $foreign_key
+	 * @return string
+	 */
+	public function get_belongsto_by_fk($foreign_key)
+	{
+		foreach ($this->belongs_to() as $name=>$belongs_to)
+		{
+			if ($belongs_to['foreign_key'] == $foreign_key)
+			{
+				return $name;
+			}
+		}
+	}
+
+	/**
+	 * Get an array of IDs to display-values suitable for use as Select element
+	 * options.
+	 * @uses ORM::candidate_key()
+	 * @return array
+	 */
+	public function option_values()
+	{
+		$out = array();
+		foreach ($this->find_all() as $model)
+		{
+			$out[$model->pk()] = $model->candidate_key();
+		}
+		return $out;
+	}
+
 	/**
 	 * A wrapper around Auth::logged_in($role) for use in ORM rules.
 	 * 

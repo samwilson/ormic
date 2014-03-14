@@ -8,7 +8,14 @@ Route::set('logout', 'logout')->defaults(array(
 	'controller' => 'users',
 	'action' => 'logout',
 ));
-
+Route::set('manifest', 'manifest')->defaults(array(
+	'controller' => 'resources',
+	'action' => 'manifest',
+));
+Route::set('home', '')->defaults(array(
+	'controller' => 'home',
+	'action' => 'home',
+));
 Route::set('ormic/view', '<type>/<id>', array(
 	'id' => '[0-9]+'
 ))->defaults(array(

@@ -35,6 +35,7 @@
 		<?= HTML::script('resources/js/jquery.min.js') ?>
 		<?= HTML::script('resources/js/bootstrap.min.js') ?>
 		<?= HTML::script('vendor/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js') ?>
+		<?= HTML::script('resources/js/offline-forms.js') ?>
 		<?= HTML::script('resources/js/application.js') ?>
 	</body>
 </html>
