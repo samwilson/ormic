@@ -20,7 +20,7 @@ Amsys is built on top of these projects:
 
 Amsys has been released under the MIT License.
 
-Copyright (c) 2015 Sam Wilson
+Copyright © 2015 Sam Wilson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
