@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+	<title>Amsys Documentation</title>
+	<transformations>
+		<template name="responsive-twig" />
+	</transformations>
+	<parser>
+		<target>docs</target>
+	</parser>
+	<transformer>
+		<target>docs</target>
+	</transformer>
+	<files>
+		<!--<directory>vendor/laravel/framework/src</directory>-->
+		<directory>app</directory>
+		<directory>tests</directory>
+	</files>
+</phpdoc>

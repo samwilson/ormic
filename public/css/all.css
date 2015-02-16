@@ -1,0 +1,10 @@
+.row.full-width { width:100%; max-width:100% }
+#content { margin:1em }
+
+pre.queries { margin:0 1em }
+
+is-foreign-key { text-align:left }
+
+table tbody th,
+table tbody td { vertical-align:top }
+table tbody td.type-int { text-align:right }
