@@ -34,6 +34,7 @@
 		</div>
 		<div class="medium-5 columns">
 			<input type="submit" class="button" value="Log in" />
+			<a href="{{action('UsersController@getRegister')}}" class="button default">Register</a>
 		</div>
 		<div class="medium-5 columns"></div>
 	</div>
