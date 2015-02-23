@@ -21,6 +21,7 @@ Amsys is built on top of these projects:
 1. Clone the Amsys repository: https://github.com/samwilson/amsys.git
 2. Run `composer install`
 3. Copy `env.example` to `.env` and edit it
+4. Run `php artisan upgrade`
 
 ## License
 
