@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="<?= action('UsersController@getLogin') ?>" method="post">
+<form action="<?= url('login') ?>" method="post">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<div class="row">
@@ -34,7 +34,7 @@
 		</div>
 		<div class="medium-5 columns">
 			<input type="submit" class="button" value="Log in" />
-			<a href="{{action('UsersController@getRegister')}}" class="button default">Register</a>
+			<a href="<?= url('register') ?>" class="button default">Register</a>
 		</div>
 		<div class="medium-5 columns"></div>
 	</div>

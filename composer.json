@@ -15,7 +15,8 @@
 			"database"
 		],
 		"psr-4": {
-			"Amsys\\": "app/"
+			"Amsys\\": "app/",
+			"Amsys\\Modules\\": "modules/"
 		}
 	},
 	"autoload-dev": {

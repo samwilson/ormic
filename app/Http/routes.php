@@ -1,13 +1,23 @@
 <?php
 
-Route::get('', 'HomeController@index');
+Route::get('', 'Http\Controllers\HomeController@index');
 
-Route::controllers([
-	'user' => 'UsersController',
-]);
-Route::resource('asset', 'AssetsController');
-Route::resource('job', 'JobsController');
-Route::resource('task', 'TasksController');
+// Users
+//Route::get('login', 'Http\Controllers\UsersController@getLogin');
+//Route::post('login', 'Http\Controllers\UsersController@postLogin');
+//Route::get('register', 'Http\Controllers\UsersController@getRegister');
+//Route::post('register', 'Http\Controllers\UsersController@postRegister');
+
+// Module module routes.
+$mods = new \Amsys\Modules();
+foreach ($mods->getModels() as $className => $moduleName) {
+	$plural = str_plural($className);
+	if ($moduleName) {
+		Route::resource(snake_case($plural), 'Modules\\' . $moduleName . '\Http\Controllers\\' . $plural . 'Controller');
+	} else {
+		Route::resource(snake_case($plural), 'Http\Controllers\\' . $plural . 'Controller');
+	}
+}
 
 /*
   Verb			Path						Action		Route Name

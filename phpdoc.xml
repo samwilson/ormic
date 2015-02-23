@@ -14,5 +14,6 @@
 		<!--<directory>vendor/laravel/framework/src</directory>-->
 		<directory>app</directory>
 		<directory>tests</directory>
+		<directory>modules</directory>
 	</files>
 </phpdoc>

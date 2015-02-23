@@ -16,42 +16,45 @@
 			<nav class="top-bar" data-topbar>
 				<ul class="title-area">
 					<li class="name"> 
-						<h1><a href="<?= action('HomeController@index') ?>"><?= $site_title ?></a></h1>
+						<h1><a href="<?= url('/') ?>"><?= $site_title ?></a></h1>
 					</li>
 				</ul>
 
 				<section class="top-bar-section">
 					<!-- Right Nav Section -->
 					<ul class="right">
+						@if ($logged_in)
 						<li>
-							@if ($logged_in)
-							<a href="<?= action('UsersController@getLogout') ?>">Log out</a>
-							@else
-							<a href="<?= action('UsersController@getLogin') ?>">Log in</a>
-							@endif
+							<a href="<?= url('user/' . $user->username) ?>">You are logged in as {{$user->name}}</a>
 						</li>
+						<li><a href="<?= url('logout') ?>">Log out</a></li>
+						@else
+						<li><a href="<?= url('login') ?>">Log in</a></li>
+						@endif
 					</ul>
 
 					<!-- Left Nav Section -->
 					<ul class="left">
-						<li class="has-dropdown">
-							<a href="<?= action('AssetsController@index') ?>" title="Search">Assets</a>
-							<ul class="dropdown">
-								<li><a href="<?= action('AssetsController@create') ?>">Create</a></li>
-							</ul>
-						</li>
-						<li class="has-dropdown">
-							<a href="<?= action('JobsController@index') ?>">Jobs</a>
-							<ul class="dropdown">
-								<li><a href="<?= action('JobsController@create') ?>">Create</a></li>
-							</ul>
-						</li>
-						<li class="has-dropdown">
-							<a href="<?= action('TasksController@index') ?>">Tasks</a>
-							<ul class="dropdown">
-								<li><a href="<?= action('TasksController@create') ?>">Create</a></li>
-							</ul>
-						</li>
+						<?php foreach ($menu as $menuItem): ?>
+							<li <?php if (isset($menuItem['items'])) echo 'class="has-dropdown"' ?>>
+								<a href="<?= $menuItem['href'] ?>"
+								   <?php if (isset($menuItem['title'])) echo 'title="' . $menuItem['title'] . '"' ?>>
+									   <?= $menuItem['text'] ?>
+								</a>
+								<?php if (isset($menuItem['items'])): ?>
+									<ul class="dropdown">
+										<?php foreach ($menuItem['items'] as $subItem): ?>
+											<li>
+												<a href="<?= $subItem['href'] ?>"
+												   <?php if (isset($subItem['title'])) echo 'title="' . $subItem['title'] . '"' ?>>
+													   <?= $subItem['text'] ?>
+												</a>
+											</li>
+										<?php endforeach ?>
+									</ul>
+								<?php endif ?>
+							</li>
+						<?php endforeach ?>
 					</ul>
 				</section>
 			</nav>

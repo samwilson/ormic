@@ -1,18 +1,10 @@
-<?php namespace Amsys\Providers;
+<?php
+
+namespace Amsys\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
-
-	/**
-	 * Bootstrap any application services.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		//
-	}
 
 	/**
 	 * Register any application services.
@@ -23,12 +15,13 @@ class AppServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
+	public function register() {
 		$this->app->bind(
-			'Illuminate\Contracts\Auth\Registrar',
-			'Amsys\Services\Registrar'
+		  'Illuminate\Contracts\Auth\Registrar', 'Amsys\Services\Registrar'
 		);
+
+		$mods = new \Amsys\Modules();
+		$mods->register($this->app);
 	}
 
 }

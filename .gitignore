@@ -3,3 +3,7 @@
 /.env
 /nbproject/private
 /public/.htaccess
+/modules/*
+!/modules/README.md
+/docs
+

@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'Amsys\Http\Controllers';
+	protected $namespace = 'Amsys';
 
 	/**
 	 * Define your route model bindings, pattern filters, etc.

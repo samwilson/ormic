@@ -2,15 +2,21 @@
 
 namespace Amsys\Http\Controllers;
 
+use Amsys\Model\User;
+
 class UsersController extends Controller {
 
 	public function index() {
 		$users = User::all();
-		return \View::make('users')->with('users', $users);
+		return \View::make('users.index')->with('users', $users);
+	}
+
+	public function show($id) {
+		
 	}
 
 	public function getLogin(\Illuminate\Http\Request $request) {
-		return view('users.login')
+		return view('user.login')
 			->with('title', 'Log in')
 			->with('adldap_suffix', \Config::get('adldap.account_suffix'));
 	}
@@ -25,13 +31,14 @@ class UsersController extends Controller {
 		}
 
 		// Then try with ADLDAP.
-		if (!$ldapConfig = \Config::get('adldap')) {
+		$ldapConfig = \Config::get('adldap');
+		if (array_get($ldapConfig, 'domain_controllers', false)) {
 			$adldap = new \adldap\adLDAP($ldapConfig);
 			if ($adldap->authenticate($username, $password)) {
 				// Check that they exist.
-				$user = \Amsys\User::where('username', '=', $username)->first();
+				$user = \Amsys\Model\User::where('username', '=', $username)->first();
 				if (!$user) {
-					$user = new \Amsys\User();
+					$user = new \Amsys\Model\User();
 					$user->username = $username;
 					$user->save();
 				}

@@ -10,8 +10,10 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		return \View::make('home')
-		  ->with('title', 'Welcome');
+		$this->view->title = 'Welcome';
+		$mods = new \Amsys\Modules();
+		$this->view->models = $mods->getModels();
+		return $this->view;
 	}
 
 }

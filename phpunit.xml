@@ -10,8 +10,9 @@
 		 stopOnFailure="false"
 		 syntaxCheck="false">
 	<testsuites>
-		<testsuite name="Application Test Suite">
+		<testsuite>
 			<directory>./tests/</directory>
+			<directory>./modules/*/tests/</directory>
 		</testsuite>
 	</testsuites>
 	<logging>
