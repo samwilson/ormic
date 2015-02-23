@@ -16,9 +16,10 @@ class UsersController extends Controller {
 	}
 
 	public function getLogin(\Illuminate\Http\Request $request) {
-		return view('user.login')
-			->with('title', 'Log in')
-			->with('adldap_suffix', \Config::get('adldap.account_suffix'));
+		$view = view('users.login');
+		$view->title = 'Log in';
+		$view->adldap_suffix = \Config::get('adldap.account_suffix');
+		return $view;
 	}
 
 	public function postLogin(\Illuminate\Http\Request $request) {
