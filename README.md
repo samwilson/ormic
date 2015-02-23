@@ -16,6 +16,12 @@ Amsys is built on top of these projects:
 * [Travis CI](https://travis-ci.org/)
 * [Badge Poser](https://poser.pugx.org/)
 
+## Installation
+
+1. Clone the Amsys repository: https://github.com/samwilson/amsys.git
+2. Run `composer install`
+3. Copy `env.example` to `.env` and edit it
+
 ## License
 
 Amsys has been released under the MIT License.

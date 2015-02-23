@@ -33,7 +33,11 @@ abstract class Controller extends BaseController {
 		$controllerName = substr(array_pop($controllerPath), 0, -(strlen('Controller')));
 		$viewName = ($controllerPath[1] == 'Modules') ? $controllerPath[2] . '::' : '';
 		$viewName .= snake_case($controllerName) . '.' . $this->currentAction;
-		$this->view = view($viewName);
+		try {
+			$this->view = view($viewName);
+		} catch (\InvalidArgumentException $ex) {
+			// No view file found.
+		}
 	}
 
 	private function getMenu() {

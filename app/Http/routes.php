@@ -3,8 +3,9 @@
 Route::get('', 'Http\Controllers\HomeController@index');
 
 // Users
-//Route::get('login', 'Http\Controllers\UsersController@getLogin');
-//Route::post('login', 'Http\Controllers\UsersController@postLogin');
+Route::get('login', 'Http\Controllers\UsersController@getLogin');
+Route::post('login', 'Http\Controllers\UsersController@postLogin');
+Route::get('logout', 'Http\Controllers\UsersController@getLogout');
 //Route::get('register', 'Http\Controllers\UsersController@getRegister');
 //Route::post('register', 'Http\Controllers\UsersController@postRegister');
 

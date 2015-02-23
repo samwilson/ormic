@@ -56,7 +56,6 @@ class UsersController extends Controller {
 
 	public function getLogout() {
 		\Auth::logout();
-		//$this->alert('success', 'You are now logged out.');
 		return redirect('');
 	}
 
