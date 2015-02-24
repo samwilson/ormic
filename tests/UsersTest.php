@@ -7,7 +7,7 @@ class UsersTest extends TestCase {
 	 * @test
 	 */
 	public function basic() {
-		$user = new Amsys\Model\User();
+		$user = new Ormic\Model\User();
 		$user->name = 'Test User';
 		$user->email = 'test@example.com';
 		$user->username = 'test';
@@ -22,7 +22,7 @@ class UsersTest extends TestCase {
 	 * @test
 	 */
 	public function name() {
-		$user = new Amsys\Model\User();
+		$user = new Ormic\Model\User();
 		$user->username = 'test';
 		$user->save();
 		$this->assertEquals('test', $user->name);
@@ -33,10 +33,10 @@ class UsersTest extends TestCase {
 	 * @test
 	 */
 	public function roles() {
-		$user = new Amsys\Model\User();
+		$user = new Ormic\Model\User();
 		$user->username = 'User Name';
 		$user->save();
-		$role = new \Amsys\Model\Role();
+		$role = new \Ormic\Model\Role();
 		$role->name = 'Role Name';
 		$role->save();
 		$user->roles()->attach($role->id);
