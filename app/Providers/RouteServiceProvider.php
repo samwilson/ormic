@@ -1,4 +1,6 @@
-<?php namespace Amsys\Providers;
+<?php
+
+namespace Amsys\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -20,11 +22,9 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
-	public function boot(Router $router)
-	{
+	public function boot(Router $router) {
 		parent::boot($router);
-
-		//
+		$router->pattern('id', '[0-9]+');
 	}
 
 	/**
@@ -33,10 +33,8 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
-	public function map(Router $router)
-	{
-		$router->group(['namespace' => $this->namespace], function($router)
-		{
+	public function map(Router $router) {
+		$router->group(['namespace' => $this->namespace], function($router) {
 			require app_path('Http/routes.php');
 		});
 	}

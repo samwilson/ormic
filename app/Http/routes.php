@@ -9,16 +9,29 @@ Route::get('logout', 'Http\Controllers\UsersController@getLogout');
 //Route::get('register', 'Http\Controllers\UsersController@getRegister');
 //Route::post('register', 'Http\Controllers\UsersController@postRegister');
 
-// Module module routes.
-$mods = new \Amsys\Modules();
-foreach ($mods->getModels() as $className => $moduleName) {
-	$plural = str_plural($className);
-	if ($moduleName) {
-		Route::resource(snake_case($plural), 'Modules\\' . $moduleName . '\Http\Controllers\\' . $plural . 'Controller');
-	} else {
-		Route::resource(snake_case($plural), 'Http\Controllers\\' . $plural . 'Controller');
-	}
-}
+Route::get('{model}', 'Http\Controllers\ModelsController@index');
+Route::get('{model}/{id}', 'Http\Controllers\ModelsController@view');
+Route::get('{model}/{id}/edit', 'Http\Controllers\ModelsController@form');
+Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
+
+/**
+ * Module module routes.
+ */
+//$mods = new \Amsys\Modules();
+//foreach ($mods->getModels() as $className => $moduleName) {
+//	$plural = str_plural($className);
+//	if ($moduleName) {
+//		$controllerClass = 'Modules\\' . $moduleName . '\Http\Controllers\\' . $plural . 'Controller';
+//		// If the module doesn't have a controller for that model, use the generic one.
+//		if (!class_exists(''.$controllerClass)) {
+//			$controllerClass = 'Http\Controllers\ModelController';
+//		}
+//	} else {
+//		$controllerClass = 'Http\Controllers\\' . $plural . 'Controller';
+//	}
+//	var_dump($controllerClass);
+//	Route::resource(snake_case($plural), $controllerClass);
+//}
 
 /*
   Verb			Path						Action		Route Name

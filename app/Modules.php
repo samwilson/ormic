@@ -71,6 +71,11 @@ class Modules {
 		return $out;
 	}
 
+	/**
+	 * Get the name of the module that provides a given model.
+	 * @param string $modelName
+	 * @return string|false
+	 */
 	public function getModuleOfModel($modelName) {
 		foreach ($this->getModels() as $model => $module) {
 			if ($modelName == $model) {

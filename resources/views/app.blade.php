@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<header>
-			<nav class="top-bar" data-topbar>
+			<nav class="top-bar" data-topbar data-options="is_hover:false">
 				<ul class="title-area">
 					<li class="name"> 
 						<h1><a href="<?= url('/') ?>"><?= $site_title ?></a></h1>
@@ -37,9 +37,9 @@
 					<ul class="left">
 						<?php foreach ($menu as $menuItem): ?>
 							<li <?php if (isset($menuItem['items'])) echo 'class="has-dropdown"' ?>>
-								<a href="<?= $menuItem['href'] ?>"
-								   <?php if (isset($menuItem['title'])) echo 'title="' . $menuItem['title'] . '"' ?>>
-									   <?= $menuItem['text'] ?>
+								<a <?php if (isset($menuItem['href'])) echo 'href="' . $menuItem['href'] . '"' ?>
+									<?php if (isset($menuItem['title'])) echo 'title="' . $menuItem['title'] . '"' ?>>
+										<?= $menuItem['text'] ?>
 								</a>
 								<?php if (isset($menuItem['items'])): ?>
 									<ul class="dropdown">

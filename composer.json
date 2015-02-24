@@ -18,7 +18,10 @@
 		"psr-4": {
 			"Amsys\\": "app/",
 			"Amsys\\Modules\\": "modules/"
-		}
+		},
+		"files": [
+			"app/helpers.php"
+		]
 	},
 	"autoload-dev": {
 		"classmap": [
