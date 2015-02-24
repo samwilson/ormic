@@ -1,8 +1,8 @@
 <?php
 
-namespace Amsys\Http\Controllers;
+namespace Ormic\Http\Controllers;
 
-class ModelsController extends \Amsys\Http\Controllers\Controller {
+class ModelsController extends \Ormic\Http\Controllers\Controller {
 	/** @var string */
 //	private $module;
 //
@@ -12,7 +12,7 @@ class ModelsController extends \Amsys\Http\Controllers\Controller {
 //	/** @var string */
 //	private $modelClassName;
 
-	/** @var \Amsys\Model\Base */
+	/** @var \Ormic\Model\Base */
 	protected $model;
 
 	/** @var \Illuminate\Support\Facades\View */
@@ -21,17 +21,17 @@ class ModelsController extends \Amsys\Http\Controllers\Controller {
 //		parent::__construct();
 //		$controllerPath = explode('\\', get_called_class());
 //		$this->modelName = substr(array_pop($controllerPath), 0, -(strlen('Controller')));
-//		$modules = new \Amsys\Modules();
+//		$modules = new \Ormic\Modules();
 //		$this->module = $modules->getModuleOfModel($this->modelName);
-//		$this->modelClassName = 'Amsys\Modules\\' . $this->module . '\Model\\' . $this->modelName;
+//		$this->modelClassName = 'Ormic\Modules\\' . $this->module . '\Model\\' . $this->modelName;
 //		$this->model = new $this->modelClassName();
 //		$this->view = view($this->module . '::' . snake_case($this->modelName) . '.' . $this->currentAction);
 //	}
 	public function setUpModel($modelSlug) {
 		$modelName = ucfirst(camel_case(str_singular($modelSlug)));
-		$modules = new \Amsys\Modules();
+		$modules = new \Ormic\Modules();
 		$module = $modules->getModuleOfModel($modelName);
-		$modelClass = 'Amsys\Modules\\' . $module . '\Model\\' . $modelName;
+		$modelClass = 'Ormic\Modules\\' . $module . '\Model\\' . $modelName;
 		$this->model = new $modelClass();
 		$this->view->title = ucwords(str_replace('-', ' ', $modelSlug));
 		$this->view->modelSlug = $modelSlug;

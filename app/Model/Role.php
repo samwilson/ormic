@@ -1,11 +1,11 @@
 <?php
 
-namespace Amsys\Model;
+namespace Ormic\Model;
 
 class Role extends \Illuminate\Database\Eloquent\Model {
 
 	public function users() {
-		return $this->belongsToMany('Amsys\Model\User');
+		return $this->belongsToMany('Ormic\Model\User');
 	}
 
 }

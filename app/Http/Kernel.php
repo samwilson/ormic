@@ -1,4 +1,4 @@
-<?php namespace Amsys\Http;
+<?php namespace Ormic\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -15,7 +15,7 @@ class Kernel extends HttpKernel {
 		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
-		'Amsys\Http\Middleware\VerifyCsrfToken',
+		'Ormic\Http\Middleware\VerifyCsrfToken',
 	];
 
 	/**
@@ -24,9 +24,9 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' => 'Amsys\Http\Middleware\Authenticate',
+		'auth' => 'Ormic\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest' => 'Amsys\Http\Middleware\RedirectIfAuthenticated',
+		'guest' => 'Ormic\Http\Middleware\RedirectIfAuthenticated',
 	];
 
 }

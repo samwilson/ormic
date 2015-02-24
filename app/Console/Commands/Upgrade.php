@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys\Console\Commands;
+namespace Ormic\Console\Commands;
 
 class Upgrade extends \Illuminate\Console\Command {
 
@@ -16,7 +16,7 @@ class Upgrade extends \Illuminate\Console\Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Upgrade Amsys.';
+	protected $description = 'Upgrade Ormic.';
 
 	/**
 	 * Execute the console command.
@@ -27,7 +27,7 @@ class Upgrade extends \Illuminate\Console\Command {
 		$this->call('down');
 		$this->info("Upgrading core application.");
 		$this->call('migrate');
-		$modules = new \Amsys\Modules();
+		$modules = new \Ormic\Modules();
 		foreach ($modules->getAll() as $name => $path) {
 			$this->info("Upgrading $name module.");
 			$dbPath = $path . '/database/migrations';

@@ -1,4 +1,4 @@
-<?php namespace Amsys\Exceptions;
+<?php namespace Ormic\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys\Providers;
+namespace Ormic\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,10 +17,10 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
 		$this->app->bind(
-		  'Illuminate\Contracts\Auth\Registrar', 'Amsys\Services\Registrar'
+		  'Illuminate\Contracts\Auth\Registrar', 'Ormic\Services\Registrar'
 		);
 
-		$mods = new \Amsys\Modules();
+		$mods = new \Ormic\Modules();
 		$mods->register($this->app);
 	}
 

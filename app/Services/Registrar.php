@@ -1,6 +1,6 @@
-<?php namespace Amsys\Services;
+<?php namespace Ormic\Services;
 
-use Amsys\User;
+use Ormic\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

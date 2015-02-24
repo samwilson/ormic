@@ -1,4 +1,4 @@
-<?php namespace Amsys\Commands;
+<?php namespace Ormic\Commands;
 
 abstract class Command {
 

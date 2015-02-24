@@ -1,4 +1,4 @@
-<?php namespace Amsys\Http\Middleware;
+<?php namespace Ormic\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

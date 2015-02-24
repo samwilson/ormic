@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys\Http\Controllers;
+namespace Ormic\Http\Controllers;
 
 class HomeController extends Controller {
 
@@ -11,7 +11,7 @@ class HomeController extends Controller {
 	 */
 	public function index() {
 		$this->view->title = 'Welcome';
-		$mods = new \Amsys\Modules();
+		$mods = new \Ormic\Modules();
 		$this->view->models = $mods->getModels();
 		return $this->view;
 	}

@@ -17,7 +17,7 @@ Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
 /**
  * Module module routes.
  */
-//$mods = new \Amsys\Modules();
+//$mods = new \Ormic\Modules();
 //foreach ($mods->getModels() as $className => $moduleName) {
 //	$plural = str_plural($className);
 //	if ($moduleName) {

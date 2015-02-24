@@ -1,8 +1,8 @@
 <?php
 
-namespace Amsys\Http\Controllers;
+namespace Ormic\Http\Controllers;
 
-use Amsys\Model\User;
+use Ormic\Model\User;
 
 class UsersController extends Controller {
 
@@ -37,9 +37,9 @@ class UsersController extends Controller {
 			$adldap = new \adldap\adLDAP($ldapConfig);
 			if ($adldap->authenticate($username, $password)) {
 				// Check that they exist.
-				$user = \Amsys\Model\User::where('username', '=', $username)->first();
+				$user = \Ormic\Model\User::where('username', '=', $username)->first();
 				if (!$user) {
-					$user = new \Amsys\Model\User();
+					$user = new \Ormic\Model\User();
 					$user->username = $username;
 					$user->save();
 				}

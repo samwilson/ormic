@@ -6,15 +6,15 @@ return [
 	|--------------------------------------------------------------------------
 	 * Some basic information about the application.
 	 */
-	'name' => 'Amsys',
-	'version' => '0.0.1',
-	'homepage' => 'https://github.com/samwilson/amsys',
+	'name' => 'Ormic',
+	'version' => '0.2.0',
+	'homepage' => 'https://github.com/samwilson/ormic',
 
 	/**
 	|--------------------------------------------------------------------------
-	| A title for this instance of Amsys.
+	| A title for this instance of Ormic.
 	 */
-	'site_title' => env('APP_SITE_TITLE', 'An Asset Management System'),
+	'site_title' => env('APP_SITE_TITLE', 'An Ormic Database'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -153,11 +153,11 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'Amsys\Providers\AppServiceProvider',
-		'Amsys\Providers\BusServiceProvider',
-		'Amsys\Providers\ConfigServiceProvider',
-		'Amsys\Providers\EventServiceProvider',
-		'Amsys\Providers\RouteServiceProvider',
+		'Ormic\Providers\AppServiceProvider',
+		'Ormic\Providers\BusServiceProvider',
+		'Ormic\Providers\ConfigServiceProvider',
+		'Ormic\Providers\EventServiceProvider',
+		'Ormic\Providers\RouteServiceProvider',
 
 	],
 

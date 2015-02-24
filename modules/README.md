@@ -1,4 +1,4 @@
-The Amsys module system
+The Ormic module system
 =======================
 
 * Each module is completely contained within a directory in this `modules`

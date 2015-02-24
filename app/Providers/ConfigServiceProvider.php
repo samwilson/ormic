@@ -1,4 +1,4 @@
-<?php namespace Amsys\Providers;
+<?php namespace Ormic\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

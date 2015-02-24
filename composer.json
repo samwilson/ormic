@@ -1,12 +1,11 @@
 {
-	"name": "samwilson/amsys",
-	"description": "An asset management system.",
+	"name": "samwilson/ormic",
+	"description": "An ORM CRUD system.",
 	"license": "MIT",
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
-		"stevebauman/adldap-fork": "4.0.*",
-		"league/csv": "~7.0"
+		"stevebauman/adldap-fork": "4.0.*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.4.*"
@@ -16,8 +15,8 @@
 			"database"
 		],
 		"psr-4": {
-			"Amsys\\": "app/",
-			"Amsys\\Modules\\": "modules/"
+			"Ormic\\": "app/",
+			"Ormic\\Modules\\": "modules/"
 		},
 		"files": [
 			"app/helpers.php"

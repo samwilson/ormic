@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys\Providers;
+namespace Ormic\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 *
 	 * @var string
 	 */
-	protected $namespace = 'Amsys';
+	protected $namespace = 'Ormic';
 
 	/**
 	 * Define your route model bindings, pattern filters, etc.

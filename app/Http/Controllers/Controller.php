@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys\Http\Controllers;
+namespace Ormic\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;

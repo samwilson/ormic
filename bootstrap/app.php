@@ -28,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
 	'Illuminate\Contracts\Http\Kernel',
-	'Amsys\Http\Kernel'
+	'Ormic\Http\Kernel'
 );
 
 $app->singleton(
 	'Illuminate\Contracts\Console\Kernel',
-	'Amsys\Console\Kernel'
+	'Ormic\Console\Kernel'
 );
 
 $app->singleton(
 	'Illuminate\Contracts\Debug\ExceptionHandler',
-	'Amsys\Exceptions\Handler'
+	'Ormic\Exceptions\Handler'
 );
 
 /*

@@ -4,7 +4,7 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /amsys/public
+    RewriteBase /ormic/public
 
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ $1 [L,R=301]

@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys\Model;
+namespace Ormic\Model;
 
 abstract class Base extends \Illuminate\Database\Eloquent\Model {
 

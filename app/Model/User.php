@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys\Model;
+namespace Ormic\Model;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,7 @@ class User extends Model implements AuthenticatableContract {
 	use Authenticatable;
 
 	public function roles() {
-		return $this->belongsToMany('Amsys\Model\Role');
+		return $this->belongsToMany('Ormic\Model\Role');
 	}
 
 	public function setUsernameAttribute($value) {

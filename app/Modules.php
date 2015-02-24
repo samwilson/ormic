@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys;
+namespace Ormic;
 
 use Illuminate\Filesystem\Filesystem;
 
@@ -22,7 +22,7 @@ class Modules {
 
 	public function register($app) {
 		foreach ($this->modules as $name => $path) {
-			$modServiceProvider = 'Amsys\\Modules\\' . $name . '\\Providers\\' . $name . 'ServiceProvider';
+			$modServiceProvider = 'Ormic\\Modules\\' . $name . '\\Providers\\' . $name . 'ServiceProvider';
 			if (class_exists($modServiceProvider)) {
 				$app->register($modServiceProvider);
 			}
@@ -57,14 +57,14 @@ class Modules {
 		// First get the core model classes.
 		foreach ($this->fs->files(app_path() . "/Model") as $f) {
 			$className = $this->classNameFromFile($f);
-			$out[$className] = ''; //'Amsys\Model\\' . $className;
+			$out[$className] = ''; //'Ormic\Model\\' . $className;
 		}
 
 		// Then get the modules' model classes.
 		foreach ($this->getAll() as $name => $path) {
 			foreach ($this->fs->files(app_path() . "/../$path/Model") as $f) {
 				$className = $this->classNameFromFile($f);
-				$out[$className] = basename($path); // 'Amsys\\' . studly_case($name) . '\Model\\' . $className;
+				$out[$className] = basename($path); // 'Ormic\\' . studly_case($name) . '\Model\\' . $className;
 			}
 		}
 

@@ -1,14 +1,14 @@
-# Amsys
+# Ormic
 
-**An Asset Management System**
+**An ORM CRUD system.**
 
-[![Build Status](https://travis-ci.org/samwilson/amsys.svg)](https://travis-ci.org/samwilson/amsys)
-[![Total Downloads](https://poser.pugx.org/samwilson/amsys/downloads.svg)](https://packagist.org/packages/samwilson/amsys)
-[![License](https://poser.pugx.org/samwilson/amsys/license.svg)](https://packagist.org/packages/samwilson/amsys)
+[![Build Status](https://travis-ci.org/samwilson/ormic.svg)](https://travis-ci.org/samwilson/ormic)
+[![Total Downloads](https://poser.pugx.org/samwilson/ormic/downloads.svg)](https://packagist.org/packages/samwilson/ormic)
+[![License](https://poser.pugx.org/samwilson/ormic/license.svg)](https://packagist.org/packages/samwilson/ormic)
 
 ## Kudos
 
-Amsys is built on top of these projects:
+Ormic is built on top of these projects:
 
 * [Laravel](http://laravel.com)
 * [Composer](https://getcomposer.org/) & [Packagist](https://packagist.org/)
@@ -18,14 +18,14 @@ Amsys is built on top of these projects:
 
 ## Installation
 
-1. Clone the Amsys repository: https://github.com/samwilson/amsys.git
+1. Clone the Ormic repository: https://github.com/samwilson/ormic.git
 2. Run `composer install`
 3. Copy `env.example` to `.env` and edit it
 4. Run `php artisan upgrade`
 
 ## License
 
-Amsys has been released under the MIT License.
+Ormic has been released under the MIT License.
 
 Copyright © 2015 Sam Wilson
 

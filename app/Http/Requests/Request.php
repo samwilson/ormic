@@ -1,4 +1,4 @@
-<?php namespace Amsys\Http\Requests;
+<?php namespace Ormic\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

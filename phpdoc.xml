@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-	<title>Amsys Documentation</title>
+	<title>Ormic Documentation</title>
 	<transformations>
 		<template name="responsive-twig" />
 	</transformations>

@@ -1,4 +1,4 @@
-<?php namespace Amsys\Providers;
+<?php namespace Ormic\Providers;
 
 use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +16,7 @@ class BusServiceProvider extends ServiceProvider {
 		$dispatcher->mapUsing(function($command)
 		{
 			return Dispatcher::simpleMapping(
-				$command, 'Amsys\Commands', 'Amsys\Handlers\Commands'
+				$command, 'Ormic\Commands', 'Ormic\Handlers\Commands'
 			);
 		});
 	}

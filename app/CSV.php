@@ -1,6 +1,6 @@
 <?php
 
-namespace Amsys;
+namespace Ormic;
 
 class CSV {
 
@@ -31,7 +31,7 @@ class CSV {
 		if ($optional) {
 			return FALSE;
 		} else {
-			throw new Exception("$col_name column not found." . print_r($this->head_name_map, TRUE));
+			throw new \Exception("$col_name column not found." . print_r($this->head_name_map, TRUE));
 		}
 	}
 
