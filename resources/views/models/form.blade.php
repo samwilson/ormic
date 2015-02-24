@@ -4,7 +4,7 @@
 
 @include('models.subnav', ['modelSlug'=>$modelSlug, 'active'=>$active])
 
-<form action="<?= url('') ?>" method="post">
+<form action="<?= url($action) ?>" method="post">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<?php foreach ($attributes as $attr): ?>
@@ -15,14 +15,20 @@
 					<?= titlecase(($rel = $record->getRelation($attr)) ? $rel : $attr) ?>
 				</label>
 			</div>
+
 			<div class="medium-6 column">
-				<?php if ($rel = $record->getRelation($attr)): ?>
-					TODO
+				<?php if ($rel = $record->getRelation($attr) && $record->$rel->count()>0): ?>
+					<select name="<?= $attr ?>">
+						<?php foreach ($record->$rel->all() as $f): ?>
+							<option vallue=""><?= $f->getTitle() ?></option>
+						<?php endforeach ?>
+					</select>
 				<?php else: ?>
-					<input type="text" name="title" id="title" value="<?= $record->$attr ?>" />
+					<input type="text" name="<?= $attr ?>" id="title" value="<?= $record->$attr ?>" />
 				<?php endif ?>
 
 			</div>
+
 			<div class="medium-4 column">
 			</div>
 		</div>

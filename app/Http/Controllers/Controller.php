@@ -37,6 +37,7 @@ abstract class Controller extends BaseController {
 			$this->view = view($viewName);
 		} catch (\InvalidArgumentException $ex) {
 			// No view file found.
+			$this->view = new \Illuminate\Support\Facades\View();
 		}
 	}
 

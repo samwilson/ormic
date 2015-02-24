@@ -11,7 +11,7 @@
 			<?php foreach ($attributes as $attr): ?>
 				<th>
 					<?php
-					if ($rel = $records->first()->getRelation($attr))
+					if ($rel = $record->getRelation($attr))
 						echo titlecase($rel);
 					else
 						echo titlecase($attr);

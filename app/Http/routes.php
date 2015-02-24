@@ -1,6 +1,6 @@
 <?php
 
-Route::get('', 'Http\Controllers\HomeController@index');
+//Route::get('', 'Http\Controllers\HomeController@index');
 
 // Users
 Route::get('login', 'Http\Controllers\UsersController@getLogin');
@@ -10,9 +10,11 @@ Route::get('logout', 'Http\Controllers\UsersController@getLogout');
 //Route::post('register', 'Http\Controllers\UsersController@postRegister');
 
 Route::get('{model}', 'Http\Controllers\ModelsController@index');
+Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
 Route::get('{model}/{id}', 'Http\Controllers\ModelsController@view');
 Route::get('{model}/{id}/edit', 'Http\Controllers\ModelsController@form');
-Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
+Route::post('{model}/new', 'Http\Controllers\ModelsController@save');
+Route::post('{model}/{id}', 'Http\Controllers\ModelsController@save');
 
 /**
  * Module module routes.
@@ -46,7 +48,7 @@ Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
  */
 
 
-//
+
 //Event::listen('illuminate.query', function($sql, $bindings) {
 //	foreach ($bindings as $i => $val) {
 //		$bindings[$i] = "'$val'";
