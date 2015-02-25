@@ -11,7 +11,11 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
 		$modelName = ucfirst(camel_case(str_singular($modelSlug)));
 		$modules = new \Ormic\Modules();
 		$module = $modules->getModuleOfModel($modelName);
-		$modelClass = 'Ormic\Modules\\' . $module . '\Model\\' . $modelName;
+		if ($module) {
+			$modelClass = 'Ormic\Modules\\' . $module . '\Model\\' . $modelName;
+		} else {
+			$modelClass = 'Ormic\Model\\' . $modelName;
+		}
 		$this->model = new $modelClass();
 		$this->view->title = ucwords(str_replace('-', ' ', $modelSlug));
 		$this->view->modelSlug = $modelSlug;

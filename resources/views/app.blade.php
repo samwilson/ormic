@@ -96,6 +96,16 @@
 						</a>
 					</li>
 				</ul>
+				<!-- Left Nav Section -->
+				<ul class="left">
+					<?php if ($user->isAdmin()): ?>
+					<li>
+						<a href="<?=url('users')?>" title="User administration">
+							Users
+						</a>
+					</li>
+					<?php endif ?>
+				</ul>
 			</section>
 		</footer>
 

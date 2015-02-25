@@ -57,7 +57,7 @@ abstract class Controller extends BaseController {
 			}, $sql);
 			self::$queries[] = $sql_with_bindings;
 			View::share('queries', self::$queries);
-			//Log::info($sql_with_bindings);
+			\Illuminate\Support\Facades\Log::info($sql_with_bindings);
 		});
 	}
 

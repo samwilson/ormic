@@ -8,6 +8,7 @@ Route::post('login', 'Http\Controllers\UsersController@postLogin');
 Route::get('logout', 'Http\Controllers\UsersController@getLogout');
 //Route::get('register', 'Http\Controllers\UsersController@getRegister');
 //Route::post('register', 'Http\Controllers\UsersController@postRegister');
+Route::get('admin/users', 'Http\Controllers\UsersController@admin');
 
 Route::get('{model}', 'Http\Controllers\ModelsController@index');
 Route::get('{model}/new', 'Http\Controllers\ModelsController@form');

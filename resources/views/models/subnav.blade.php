@@ -8,13 +8,13 @@
 	</dd>
 
 	<dd class="<?php if ($active == 'view') echo 'active' ?>">
-		<a <?php if ($record) echo 'href="' . url($modelSlug . '/' . $record->id) . '"' ?>>
+		<a <?php if (isset($record->id)) echo 'href="' . url($modelSlug . '/' . $record->id) . '"' ?>>
 			View
 		</a>
 	</dd>
 
 	<dd class="<?php if ($active == 'edit') echo 'active' ?>">
-		<a <?php if ($record) echo 'href="' . url($modelSlug . '/' . $record->id . '/edit') . '"' ?>>
+		<a <?php if (isset($record->id)) echo 'href="' . url($modelSlug . '/' . $record->id . '/edit') . '"' ?>>
 			Edit
 		</a>
 	</dd>

@@ -15,6 +15,12 @@ class UsersController extends Controller {
 		
 	}
 
+	public function admin() {
+		$view = view('users.admin');
+		
+		return $view;
+	}
+
 	public function getLogin(\Illuminate\Http\Request $request) {
 		$view = view('users.login');
 		$view->title = 'Log in';
