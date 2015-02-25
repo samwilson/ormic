@@ -1,9 +1,11 @@
 <?php
-
+/**
+ * @group ormic
+ */
 class ModelsTest extends TestCase {
 
 	/**
-	 * @testdox A model can report its attributes' names.
+	 * @testdox Any model can report its attributes' names.
 	 * @test
 	 */
 	public function basic() {
@@ -14,10 +16,11 @@ class ModelsTest extends TestCase {
 	}
 
 	/**
-	 * @testdox Relationships...
+	 * @testdox 
 	 * @test
 	 */
 	public function foreign() {
+		
 	}
 
 }

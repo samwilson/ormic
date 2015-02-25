@@ -25,7 +25,7 @@
 					<ul class="right">
 						@if ($logged_in)
 						<li>
-							<a href="<?= url('user/' . $user->username) ?>">You are logged in as {{$user->name}}</a>
+							<a>You are logged in as {{$user->name}}</a>
 						</li>
 						<li><a href="<?= url('logout') ?>">Log out</a></li>
 						@else

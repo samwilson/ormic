@@ -17,12 +17,12 @@
 			</div>
 
 			<div class="medium-6 column">
-				<?php if ($rel = $record->getRelation($attr) && $record->$rel->count()>0): ?>
-					<select name="<?= $attr ?>">
+				<?php if ($rel = $record->getRelation($attr)): ?>
+					<?php /* <select name="<?= $attr ?>">
 						<?php foreach ($record->$rel->all() as $f): ?>
 							<option vallue=""><?= $f->getTitle() ?></option>
 						<?php endforeach ?>
-					</select>
+					</select> */ ?>
 				<?php else: ?>
 					<input type="text" name="<?= $attr ?>" id="title" value="<?= $record->$attr ?>" />
 				<?php endif ?>

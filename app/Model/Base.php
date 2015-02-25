@@ -6,6 +6,19 @@ use Illuminate\Support\Facades\DB;
 
 abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
+	/** @var boolean */
+	public $timestamps = false;
+	protected $hasOne = array();
+	protected $hasMany = array();
+
+	public function getHasOne() {
+		return $this->hasOne;
+	}
+
+	public function getHasMany() {
+		return $this->hasMany;
+	}
+
 	public function getAttributeNames() {
 
 		switch (DB::connection()->getConfig('driver')) {

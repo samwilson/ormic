@@ -28,6 +28,9 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
 	public function view($modelSlug, $id) {
 		$this->setUpModel($modelSlug);
 		$this->view->record = $this->model->find($id);
+		foreach ($this->model->getHasOne() as $oneName=>$oneClass) {
+			$this->view->$oneName = new $oneClass();
+		}
 		return $this->view;
 	}
 
@@ -46,12 +49,12 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
 
 	public function save($modelSlug, $id = false) {
 		$this->setUpModel($modelSlug);
-		$this->model = $this->model->find($id);
+		$model = ($id) ? $this->model->find($id) : $this->model;
 		foreach ($this->model->getAttributeNames() as $attr) {
-			$this->model->$attr = \Illuminate\Support\Facades\Input::get($attr);
+			$model->$attr = \Illuminate\Support\Facades\Input::get($attr);
 		}
-		$this->model->save();
-		return redirect($modelSlug . '/' . $this->model->id);
+		$model->save();
+		return redirect($modelSlug . '/' . $model->id);
 	}
 
 }

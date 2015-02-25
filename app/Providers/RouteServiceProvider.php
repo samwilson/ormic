@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider {
 		// Module routes.
 		$modules = new \Ormic\Modules();
 		foreach ($modules->getAll() as $mod) {
-			include app_path() . '/../' . $mod . '/Http/routes.php';
+			require app_path() . '/../' . $mod . '/Http/routes.php';
 		}
 
 		// Core application routes.
