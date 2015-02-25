@@ -99,6 +99,11 @@
 			</section>
 		</footer>
 
+		<?php if (getenv('APP_ENV')!='production' && count($queries) > 0): ?>
+		<p>Query log:</p>
+		<ol><li><code><?= join('</code></li><li><code>', $queries) ?></code></li></ol>
+		<?php endif ?>
+
 		<script src="<?= asset('js/jquery.js') ?>"></script>
 		<script src="<?= asset('js/foundation.min.js') ?>"></script>
 		<script src="<?= asset('js/app.js') ?>"></script>

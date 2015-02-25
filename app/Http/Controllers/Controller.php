@@ -5,7 +5,7 @@ namespace Ormic\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use View;
+use Illuminate\Support\Facades\View;
 
 abstract class Controller extends BaseController {
 
@@ -17,6 +17,9 @@ abstract class Controller extends BaseController {
 
 	/** @var \Illuminate\View\View */
 	protected $view;
+
+	/** @var array|string SQL queries that have been executed. */
+	private static $queries = array();
 
 	public function __construct() {
 		$this->currentAction = array_get(explode('@', \Route::currentRouteAction()), 1, '');
@@ -39,6 +42,23 @@ abstract class Controller extends BaseController {
 			// No view file found.
 			$this->view = new \Illuminate\Support\Facades\View();
 		}
+
+		$this->queryListener();
+	}
+
+	private function queryListener() {
+		View::share('queries', self::$queries);
+		\Illuminate\Support\Facades\Event::listen('illuminate.query', function($sql, $bindings) {
+			foreach ($bindings as $i => $val) {
+				$bindings[$i] = "'$val'";
+			}
+			$sql_with_bindings = array_reduce($bindings, function ($result, $item) {
+				return substr_replace($result, $item, strpos($result, '?'), 1);
+			}, $sql);
+			self::$queries[] = $sql_with_bindings;
+			View::share('queries', self::$queries);
+			//Log::info($sql_with_bindings);
+		});
 	}
 
 	private function getMenu() {

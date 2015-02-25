@@ -66,12 +66,25 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
 	public function getAttributeTitle($attribute) {
 		$value = $this->$attribute;
-		if ($relation = $this->getRelation($attribute)) {
+		$relation = $this->getRelation($attribute);
+		if ($relation && $this->$relation) {
 			$title = $this->$relation->getTitle();
 		} else {
 			$title = $value;
 		}
 		return $title;
+	}
+
+	/**
+	 * Get the related model, given an attribute name.
+	 * @param string $attr Can have trailing '_id'.
+	 */
+	public function getBelongsTo($attr) {
+		if (substr($attr, -3) == '_id') {
+			$relationName = substr($attr, 0, -3);
+			return $this->$relationName;
+		}
+		return false;
 	}
 
 	/**

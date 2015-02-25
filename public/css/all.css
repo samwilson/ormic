@@ -3,10 +3,11 @@
 
 pre.queries { margin:0 1em }
 
-is-foreign-key { text-align:left }
+select { height: auto }
+select[size], select[multiple] { background-image:none }
+
+.is-foreign-key { text-align:left }
 
 table tbody th,
 table tbody td { vertical-align:top }
 table tbody td.type-int { text-align:right }
-
-table.attribute-table tr.timestamps td { font-size:smaller; padding:0; color:#666 }
