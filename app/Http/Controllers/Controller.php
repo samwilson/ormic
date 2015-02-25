@@ -28,7 +28,8 @@ abstract class Controller extends BaseController {
 		View::share('alerts', \Session::get('alerts', array()));
 		View::share('menu', $this->getMenu());
 		View::share('logged_in', \Auth::check());
-		View::share('user', \Auth::user());
+		$user = (\Auth::check()) ? \Auth::user() : new \Ormic\Model\User();
+		View::share('user', $user);
 
 		// Standard views are at:
 		// resources/views/<controller_name>/<action_name>.blade.php
