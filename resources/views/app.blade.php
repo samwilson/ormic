@@ -35,26 +35,40 @@
 
 					<!-- Left Nav Section -->
 					<ul class="left">
-						<?php foreach ($menu as $menuItem): ?>
-							<li <?php if (isset($menuItem['items'])) echo 'class="has-dropdown"' ?>>
-								<a <?php if (isset($menuItem['href'])) echo 'href="' . $menuItem['href'] . '"' ?>
-									<?php if (isset($menuItem['title'])) echo 'title="' . $menuItem['title'] . '"' ?>>
+						<?php foreach ($menu as $menuItem) :
+?>
+							<li <?php if (isset($menuItem['items'])) {
+                                echo 'class="has-dropdown"'
+} ?>>
+								<a <?php if (isset($menuItem['href'])) {
+                                    echo 'href="' . $menuItem['href'] . '"'
+} ?>
+									<?php if (isset($menuItem['title'])) {
+                                        echo 'title="' . $menuItem['title'] . '"'
+} ?>>
 										<?= $menuItem['text'] ?>
 								</a>
-								<?php if (isset($menuItem['items'])): ?>
+								<?php if (isset($menuItem['items'])) :
+?>
 									<ul class="dropdown">
-										<?php foreach ($menuItem['items'] as $subItem): ?>
+										<?php foreach ($menuItem['items'] as $subItem) :
+?>
 											<li>
 												<a href="<?= $subItem['href'] ?>"
-												   <?php if (isset($subItem['title'])) echo 'title="' . $subItem['title'] . '"' ?>>
-													   <?= $subItem['text'] ?>
+                                                    <?php if (isset($subItem['title'])) {
+                                                        echo 'title="' . $subItem['title'] . '"'
+} ?>>
+                                                        <?= $subItem['text'] ?>
 												</a>
 											</li>
-										<?php endforeach ?>
+										<?php
+endforeach ?>
 									</ul>
-								<?php endif ?>
+								<?php
+endif ?>
 							</li>
-						<?php endforeach ?>
+						<?php
+endforeach ?>
 					</ul>
 				</section>
 			</nav>
@@ -98,21 +112,25 @@
 				</ul>
 				<!-- Left Nav Section -->
 				<ul class="left">
-					<?php if ($user->isAdmin()): ?>
+					<?php if ($user->isAdmin()) :
+?>
 					<li>
 						<a href="<?=url('users')?>" title="User administration">
 							Users
 						</a>
 					</li>
-					<?php endif ?>
+					<?php
+endif ?>
 				</ul>
 			</section>
 		</footer>
 
-		<?php if (getenv('APP_ENV')!='production' && count($queries) > 0): ?>
+		<?php if (getenv('APP_ENV')!='production' && count($queries) > 0) :
+?>
 		<p>Query log:</p>
 		<ol><li><code><?= join('</code></li><li><code>', $queries) ?></code></li></ol>
-		<?php endif ?>
+		<?php
+endif ?>
 
 		<script src="<?= asset('js/jquery.js') ?>"></script>
 		<script src="<?= asset('js/foundation.min.js') ?>"></script>

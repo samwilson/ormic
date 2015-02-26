@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e53ac17f42d415c01f843d43048046dd",
+    "hash": "4e680425a0f6d02e9ac5cb3a23cc5626",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2204,45 +2204,6 @@
                 "xunit"
             ],
             "time": "2014-10-03 05:12:11"
-        },
-        {
-            "name": "pragmarx/laravelcs",
-            "version": "v0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/antonioribeiro/laravelcs.git",
-                "reference": "f955f7b043fef894042e2a87ce3cc559fbdba991"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/laravelcs/zipball/f955f7b043fef894042e2a87ce3cc559fbdba991",
-                "reference": "f955f7b043fef894042e2a87ce3cc559fbdba991",
-                "shasum": ""
-            },
-            "require": {
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Antonio Carlos Ribeiro",
-                    "email": "acr@antoniocarlosribeiro.com",
-                    "role": "Creator"
-                }
-            ],
-            "description": "PHP_CodeSniffer custom Sniff for Laravel coding standard",
-            "keywords": [
-                "PHP_CodeSniffer",
-                "code",
-                "laravel",
-                "sniffer",
-                "standards"
-            ],
-            "time": "2014-12-09 13:52:13"
         },
         {
             "name": "sebastian/comparator",

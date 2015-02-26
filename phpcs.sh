@@ -1,1 +1,1 @@
-./vendor/bin/phpcs --report=full --standard=./vendor/pragmarx/laravelcs/Standards/Laravel/ $1
+./vendor/bin/phpcs --report=full --extensions=php --ignore=vendor,*.blade.php --standard=PSR2 .

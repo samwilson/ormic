@@ -47,4 +47,3 @@ Route::post('{model}/{id}', 'Http\Controllers\ModelsController@save');
   PUT/PATCH 	/resource/{resource}		update		resource.update
   DELETE		/resource/{resource}		destroy 	resource.destroy
  */
-

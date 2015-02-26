@@ -1,7 +1,7 @@
 <?php namespace Ormic\Events;
 
-abstract class Event {
+abstract class Event
+{
 
-	//
-
+    //
 }

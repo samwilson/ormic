@@ -11,52 +11,53 @@
  * @return string                A properly-typeset title.
  * @todo Get replacement strings from configuration file.
  */
-function titlecase($value, $format = 'html') {
+function titlecase($value, $format = 'html')
+{
 
-	/**
-	 * The mapping of words (and initialisms, etc.) to their titlecased
-	 * counterparts for HTML output.
-	 * @var array
-	 */
-	$html_replacements = array(
-		'id' => 'ID',
-		'cant' => "can't",
-		'in' => 'in',
-		'at' => 'at',
-		'of' => 'of',
-		'for' => 'for',
-		'sql' => 'SQL',
-		'todays' => "Today's",
-	);
+    /**
+     * The mapping of words (and initialisms, etc.) to their titlecased
+     * counterparts for HTML output.
+     * @var array
+     */
+    $html_replacements = array(
+        'id' => 'ID',
+        'cant' => "can't",
+        'in' => 'in',
+        'at' => 'at',
+        'of' => 'of',
+        'for' => 'for',
+        'sql' => 'SQL',
+        'todays' => "Today's",
+    );
 
-	/**
-	 * The mapping of words (and initialisms, etc.) to their titlecased
-	 * counterparts for LaTeX output.
-	 * @var array
-	 */
-	$latex_replacements = array(
-		'cant' => "can't",
-	);
+    /**
+     * The mapping of words (and initialisms, etc.) to their titlecased
+     * counterparts for LaTeX output.
+     * @var array
+     */
+    $latex_replacements = array(
+        'cant' => "can't",
+    );
 
-	/**
-	 * Marshall the correct replacement strings.
-	 */
-	if ($format == 'latex') {
-		$replacements = array_merge($html_replacements, $latex_replacements);
-	} else {
-		$replacements = $html_replacements;
-	}
+    /**
+     * Marshall the correct replacement strings.
+     */
+    if ($format == 'latex') {
+        $replacements = array_merge($html_replacements, $latex_replacements);
+    } else {
+        $replacements = $html_replacements;
+    }
 
-	/**
-	 * Recurse if neccessary
-	 */
-	if (is_array($value)) {
-		return array_map(array(self, 'titlecase'), $value);
-	} else {
-		$out = ucwords(preg_replace('|_|', ' ', $value));
-		foreach ($replacements as $search => $replacement) {
-			$out = preg_replace("|\b$search\b|i", $replacement, $out);
-		}
-		return trim($out);
-	}
+    /**
+     * Recurse if neccessary
+     */
+    if (is_array($value)) {
+        return array_map(array(self, 'titlecase'), $value);
+    } else {
+        $out = ucwords(preg_replace('|_|', ' ', $value));
+        foreach ($replacements as $search => $replacement) {
+            $out = preg_replace("|\b$search\b|i", $replacement, $out);
+        }
+        return trim($out);
+    }
 }

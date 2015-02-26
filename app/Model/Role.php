@@ -2,14 +2,15 @@
 
 namespace Ormic\Model;
 
-class Role extends Base {
+class Role extends Base
+{
 
-	const ADMIN_ID = 1;
+    const ADMIN_ID = 1;
 
-	public $fillable = array('name');
+    public $fillable = array('name');
 
-	public function users() {
-		return $this->belongsToMany('Ormic\Model\User');
-	}
-
+    public function users()
+    {
+        return $this->belongsToMany('Ormic\Model\User');
+    }
 }
