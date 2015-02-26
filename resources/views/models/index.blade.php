@@ -5,6 +5,7 @@
 @include('models.subnav', ['modelSlug'=>$modelSlug, 'active'=>'search'])
 
 <table>
+    <caption><?=number_format($records->total())?> records found.</caption>
 	<thead>
 		<tr>
 			<th colspan="2"><em>Actions</em></th>
@@ -44,5 +45,7 @@
 		@endforeach
 	</tbody>
 </table>
+
+@include('models.pagination', ['paginator'=>$records])
 
 @stop

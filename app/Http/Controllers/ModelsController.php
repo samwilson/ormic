@@ -28,7 +28,7 @@ class ModelsController extends \Ormic\Http\Controllers\Controller
     public function index($modelSlug)
     {
         $this->setUpModel($modelSlug);
-        $this->view->records = $this->model->all();
+        $this->view->records = $this->model->paginate();
         return $this->view;
     }
 
