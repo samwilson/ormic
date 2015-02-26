@@ -5,8 +5,7 @@ use Ormic\Model\User;
 /**
  * @group ormic
  */
-class UsersTest extends TestCase
-{
+class UsersTest extends TestCase {
 
     /**
      * @testdox A User has a name, email address, and username.
@@ -60,15 +59,29 @@ class UsersTest extends TestCase
      */
     public function firstUser()
     {
+        // Start with 0 users.
+        $this->assertEquals(0, User::count());
+
+        // Save a first user, and they should be made an admin.
         $user1 = new User();
         $user1->username = 'User One';
         $user1->save();
         $this->assertTrue($user1->hasRole('Administrator'));
         $this->assertTrue($user1->isAdmin());
+        $this->assertEquals(1, User::count());
+
+        // Check that resaving the first user doesn't break this (like it was doing).
+        $user1->username = 'User 1';
+        $user1->save();
+        $this->assertTrue($user1->isAdmin());
+        $this->assertEquals(1, User::count());
+
+        // Save a second user, and they shouldn't be an admin.
         $user2 = new User();
         $user2->username = 'User Two';
         $user2->save();
         $this->assertFalse($user2->hasRole('Administrator'));
         $this->assertFalse($user2->isAdmin());
     }
+
 }

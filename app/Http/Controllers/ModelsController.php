@@ -1,27 +1,28 @@
-<?php
+<?php namespace Ormic\Http\Controllers;
 
-namespace Ormic\Http\Controllers;
+use \Illuminate\Support\Facades\Input;
 
-class ModelsController extends \Ormic\Http\Controllers\Controller
-{
+class ModelsController extends \Ormic\Http\Controllers\Controller {
 
     /** @var \Ormic\Model\Base */
     protected $model;
 
-    public function setUpModel($modelSlug)
+    protected function setUpModel($modelSlug)
     {
         $modelName = ucfirst(camel_case(str_singular($modelSlug)));
         $modules = new \Ormic\Modules();
         $module = $modules->getModuleOfModel($modelName);
-        if ($module) {
+        if ($module)
+        {
             $modelClass = 'Ormic\Modules\\' . $module . '\Model\\' . $modelName;
-        } else {
+        } else
+        {
             $modelClass = 'Ormic\Model\\' . $modelName;
         }
         $this->model = new $modelClass();
         $this->view->title = ucwords(str_replace('-', ' ', $modelSlug));
         $this->view->modelSlug = $modelSlug;
-        $this->view->attributes = $this->model->getAttributeNames();
+        $this->view->columns = $this->model->getColumns();
         $this->view->record = $this->model;
     }
 
@@ -36,7 +37,8 @@ class ModelsController extends \Ormic\Http\Controllers\Controller
     {
         $this->setUpModel($modelSlug);
         $this->view->record = $this->model->find($id);
-        foreach ($this->model->getHasOne() as $oneName => $oneClass) {
+        foreach ($this->model->getHasOne() as $oneName => $oneClass)
+        {
             $this->view->$oneName = new $oneClass();
         }
         return $this->view;
@@ -48,7 +50,8 @@ class ModelsController extends \Ormic\Http\Controllers\Controller
         $this->view->active = 'create';
         $this->view->action = $modelSlug . '/new';
         $this->view->record = $this->model;
-        if ($id) {
+        if ($id)
+        {
             $this->view->record = $this->model->find($id);
             $this->view->active = 'edit';
             $this->view->action = $modelSlug . '/' . $this->view->record->id;
@@ -60,10 +63,15 @@ class ModelsController extends \Ormic\Http\Controllers\Controller
     {
         $this->setUpModel($modelSlug);
         $model = ($id) ? $this->model->find($id) : $this->model;
-        foreach ($this->model->getAttributeNames() as $attr) {
-            $model->$attr = \Illuminate\Support\Facades\Input::get($attr);
+        foreach ($this->model->getAttributes() as $attr)
+        {
+            if ($attr->required()) {
+                ;
+            }
+            $model->$attr = Input::get($attr);
         }
         $model->save();
         return redirect($modelSlug . '/' . $model->id);
     }
+
 }

@@ -20,7 +20,7 @@ class User extends Base implements AuthenticatableContract
 
     public function onCreated($user)
     {
-        if (User::count() == 1) {
+        if (User::count() == 1 && !$user->isAdmin()) {
             $adminRole = Role::firstOrCreate(array('name'=>'Administrator'));
             $user->roles()->attach($adminRole->id);
         }

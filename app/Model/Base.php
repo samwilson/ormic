@@ -1,16 +1,16 @@
-<?php
-
-namespace Ormic\Model;
+<?php namespace Ormic\Model;
 
 use Illuminate\Support\Facades\DB;
 
-abstract class Base extends \Illuminate\Database\Eloquent\Model
-{
+abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     /** @var boolean */
     public $timestamps = false;
     protected $hasOne = array();
     protected $hasMany = array();
+
+    /** @var array|Column */
+    protected $columns;
 
     public function getHasOne()
     {
@@ -22,10 +22,20 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model
         return $this->hasMany;
     }
 
-    public function getAttributeNames()
+    /**
+     * Get the columns of this Model.
+     * @return array|Attribute
+     * @throws \Exception
+     */
+    public function getColumns()
     {
+        if ($this->columns)
+        {
+            return $this->columns;
+        }
 
-        switch (DB::connection()->getConfig('driver')) {
+        switch (DB::connection()->getConfig('driver'))
+        {
             case 'sqlite':
                 $query = "pragma table_info(" . $this->getTable() . ")";
                 $column_name = 'name';
@@ -39,7 +49,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model
                 break;
 
             case 'mysql':
-                $query = 'SHOW COLUMNS FROM ' . $this->getTable();
+                $query = 'SHOW FULL COLUMNS FROM ' . $this->getTable();
                 $column_name = 'Field';
                 $reverse = false;
                 break;
@@ -58,23 +68,24 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model
                 throw new \Exception($error);
                 break;
         }
-        $columns = array();
-        foreach (DB::select($query) as $column) {
-            $columns[$column->$column_name] = $column->$column_name; // setting the column name as key too
+        $this->columns = array();
+        foreach (DB::select($query) as $columnInfo)
+        {
+            $column = new Column($this, $columnInfo->$column_name, $columnInfo);
+            $this->columns[$column->getName()] = $column;
         }
-        if ($reverse) {
-            $columns = array_reverse($columns);
-        }
-        return $columns;
+        return $this->columns;
     }
 
     public function getAttributeTitle($attribute)
     {
         $value = $this->$attribute;
         $relation = $this->getRelation($attribute);
-        if ($relation && $this->$relation) {
+        if ($relation && $this->$relation)
+        {
             $title = $this->$relation->getTitle();
-        } else {
+        } else
+        {
             $title = $value;
         }
         return $title;
@@ -86,7 +97,8 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model
      */
     public function getBelongsTo($attr)
     {
-        if (substr($attr, -3) == '_id') {
+        if (substr($attr, -3) == '_id')
+        {
             $relationName = substr($attr, 0, -3);
             return $this->$relationName;
         }
@@ -104,7 +116,8 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model
      */
     public function getRelation($attr)
     {
-        if (substr($attr, -3) == '_id') {
+        if (substr($attr, -3) == '_id')
+        {
             return substr($attr, 0, -3);
         }
         return false;
@@ -112,7 +125,8 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model
 
     public function getTitle()
     {
-        if (isset($this->title)) {
+        if (isset($this->title))
+        {
             return $this->title;
         }
         return $this->id;
@@ -144,7 +158,10 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model
     public function setBelongsTo($rel, $title)
     {
         $exists = $this->$rel->first();
-        if (!$exists->id) {
+        if (!$exists->id)
+        {
+            
         }
     }
+
 }
