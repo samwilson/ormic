@@ -4,6 +4,10 @@
 
 @include('models.subnav', ['modelSlug'=>$modelSlug, 'active'=>'search'])
 
+@if ($records->total()==0)
+<p class="alert-box info">No records found.</p>
+
+@else
 <table>
     <caption><?=number_format($records->total())?> records found.</caption>
 	<thead>
@@ -47,5 +51,7 @@
 </table>
 
 @include('models.pagination', ['paginator'=>$records])
+
+@endif
 
 @stop
