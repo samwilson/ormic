@@ -29,7 +29,7 @@
                 <?php else: ?>
                     <input type="text" name="<?= $column ?>" id="title"
                         <?php if ($column->isRequired()) echo 'required' ?>
-                           value="<?= $record->$column ?>"
+                           value="{{$record->$column or old($column->getName())}}"
                            />
                 <?php endif ?>
 

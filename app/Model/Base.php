@@ -1,8 +1,11 @@
 <?php namespace Ormic\Model;
 
 use Illuminate\Support\Facades\DB;
+use Watson\Validating\ValidatingTrait;
 
 abstract class Base extends \Illuminate\Database\Eloquent\Model {
+
+    use ValidatingTrait;
 
     /** @var boolean */
     public $timestamps = false;
@@ -15,13 +18,43 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
     /** @var User */
     protected $user;
 
+    /** @var array|string */
+    protected $rules;
+
     public function __construct($attributes = array())
     {
         parent::__construct($attributes);
-        if (method_exists($this, 'onCreated'))
+        // 'creating', 'created', 'updating', 'updated',
+        // 'deleting', 'deleted', 'saving', 'saved',
+        // 'restoring', 'restored',
+        foreach ($this->getObservableEvents() as $event)
         {
-            self::created(array($this, 'onCreated'));
+            $methodName = 'on' . camel_case($event);
+            if (method_exists($this, $methodName))
+            {
+                self::$event(array($this, $methodName));
+            }
         }
+    }
+
+//    public function onUpdating($model)
+//    {
+//        return $model->canEdit();
+//    }
+//
+//    public function onCreating($model)
+//    {
+//        return $model->canCreate();
+//    }
+
+    public function canCreate()
+    {
+        return $this->canEdit();
+    }
+
+    public function canEdit()
+    {
+        return $this->user->isAdmin();
     }
 
     public function getHasOne()

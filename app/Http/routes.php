@@ -12,7 +12,7 @@ Route::get('admin/users', 'Http\Controllers\UsersController@admin');
 
 Route::get('{model}', 'Http\Controllers\ModelsController@index');
 Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
-Route::get('{model}/{id}', 'Http\Controllers\ModelsController@view');
+Route::get('{model}/{id}', 'Http\Controllers\ModelsController@view')->where(['id' => '[0-9]+']);
 Route::get('{model}/{id}/edit', 'Http\Controllers\ModelsController@form');
 Route::post('{model}/new', 'Http\Controllers\ModelsController@save');
 Route::post('{model}/{id}', 'Http\Controllers\ModelsController@save');

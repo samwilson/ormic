@@ -109,7 +109,7 @@
             </section>
         </footer>
 
-        <?php if (getenv('APP_ENV')!='production' && count($queries) > 0): ?>
+        <?php if (isset($queries) && count($queries) > 0): ?>
         <p>Query log:</p>
         <ol><li><code><?= join('</code></li><li><code>', $queries) ?></code></li></ol>
         <?php endif ?>

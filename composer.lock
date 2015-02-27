@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e680425a0f6d02e9ac5cb3a23cc5626",
+    "hash": "60d64f766c59fb796bdf73557416ebeb",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -410,16 +410,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.0.7",
+            "version": "v5.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f46adbb5bc753bd9503ee232e8ce1f4421a78b2a"
+                "reference": "c263240daa383e6b9bd979600dc61dcb2c436d53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f46adbb5bc753bd9503ee232e8ce1f4421a78b2a",
-                "reference": "f46adbb5bc753bd9503ee232e8ce1f4421a78b2a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c263240daa383e6b9bd979600dc61dcb2c436d53",
+                "reference": "c263240daa383e6b9bd979600dc61dcb2c436d53",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +531,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-02-25 20:23:22"
+            "time": "2015-02-27 00:32:38"
         },
         {
             "name": "league/flysystem",
@@ -2690,11 +2690,67 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2015-01-25 04:39:26"
+        },
+        {
+            "name": "watson/validating",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dwightwatson/validating.git",
+                "reference": "359a2a76666635f8ae122ece31a5da5e798005de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dwightwatson/validating/zipball/359a2a76666635f8ae122ece31a5da5e798005de",
+                "reference": "359a2a76666635f8ae122ece31a5da5e798005de",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.0",
+                "illuminate/events": "~5.0",
+                "illuminate/support": "~5.0",
+                "illuminate/validation": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Watson\\Validating\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dwight Watson",
+                    "email": "dwight@studiousapp.com"
+                }
+            ],
+            "description": "Eloquent model validating trait.",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "validation"
+            ],
+            "time": "2014-12-10 18:32:24"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "watson/validating": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

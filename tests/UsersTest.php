@@ -24,6 +24,20 @@ class UsersTest extends TestCase {
     }
 
     /**
+     * @testdox A user can log in and log out.
+     */
+    public function auth()
+    {
+        $user = new User();
+        $user->username = 'test';
+        $user->save();
+        \Auth::login($user);
+        $this->assertTrue(\Auth::check());
+        \Auth::logout();
+        $this->assertFalse(\Auth::check());
+    }
+
+    /**
      * @testdox If no name is present, the username is substituted.
      * @test
      */
@@ -82,6 +96,9 @@ class UsersTest extends TestCase {
         $user2->save();
         $this->assertFalse($user2->hasRole('Administrator'));
         $this->assertFalse($user2->isAdmin());
+        $this->assertTrue($user1->isAdmin());
+
+        $this->assertEquals(2, User::count());
     }
 
 }

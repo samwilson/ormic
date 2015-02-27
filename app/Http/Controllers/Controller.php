@@ -48,7 +48,10 @@ abstract class Controller extends BaseController {
             $this->view = new \Illuminate\Support\Facades\View();
         }
 
-        $this->queryListener();
+        if (getenv('APP_ENV') == 'development')
+        {
+            $this->queryListener();
+        }
     }
 
     private function queryListener()

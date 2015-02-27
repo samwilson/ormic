@@ -23,6 +23,7 @@ class Install extends Migration {
             $table->string('name')->nullable();
             $table->string('username')->unique();
             $table->string('email')->nullable();
+            $table->rememberToken();
         });
         Schema::create('roles', function(Blueprint $table) {
             $table->increments('id');

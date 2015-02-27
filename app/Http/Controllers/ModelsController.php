@@ -38,6 +38,7 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
     {
         $this->setUpModel($modelSlug);
         $this->view->record = $this->model->find($id);
+        $this->view->record->setUser($this->user);
         foreach ($this->model->getHasOne() as $oneName => $oneClass)
         {
             $this->view->$oneName = new $oneClass();
@@ -51,12 +52,23 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
         $this->view->active = 'create';
         $this->view->action = $modelSlug . '/new';
         $this->view->record = $this->model;
+        $this->view->record->setUser($this->user);
         if ($id)
         {
             $this->view->record = $this->model->find($id);
+            $this->view->record->setUser($this->user);
             $this->view->active = 'edit';
             $this->view->action = $modelSlug . '/' . $this->view->record->id;
+            if (!$this->view->record->canEdit())
+            {
+                $this->alert('warning', 'You are not permitted to edit this record.');
+            }
         }
+        if (!$this->view->record->canCreate())
+        {
+            $this->alert('warning', 'You are not permitted to create new ' . titlecase(snake_case($modelSlug, ' ')) . ' records.');
+        }
+
         return $this->view;
     }
 
@@ -64,6 +76,15 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
     {
         $this->setUpModel($modelSlug);
         $model = ($id) ? $this->model->find($id) : $this->model;
+        $model->setUser($this->user);
+        if ($model->id && !$model->canEdit())
+        {
+            throw new \Exception('Editing denied.');
+        }
+        if (!$model->id && !$model->canCreate())
+        {
+            throw new \Exception('Creating denied.');
+        }
         //dd($this->model->getColumns());
         foreach ($this->model->getColumns() as $column)
         {
@@ -73,8 +94,17 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
                 $model->$colName = Input::get($colName);
             }
         }
-        $model->save();
-        return redirect($modelSlug . '/' . $model->id);
+        //$model->save();
+        //return redirect($modelSlug . '/' . $model->id);
+        if (!$model->save())
+        {
+            // Oops.
+            return redirect($modelSlug . '/new')
+                ->withErrors($model->getErrors())
+                ->withInput();
+        }
+        return redirect($modelSlug . '/' . $model->id)
+            ->withSuccess("Data saved successfully.");
     }
 
 }

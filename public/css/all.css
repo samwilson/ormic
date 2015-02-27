@@ -1,6 +1,8 @@
 .row.full-width { width:100%; max-width:100% }
 #content { margin:1em }
 
+.sub-nav { background-color:#f2f2f2 }
+
 pre.queries { margin:0 1em }
 
 select { height: auto }

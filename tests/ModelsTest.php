@@ -41,11 +41,26 @@ class ModelsTest extends TestCase {
     }
 
     /**
-     * @testdox All changes are recorded.
+     * @testdox By default, only Administrators can modify data.
      */
-    public function changes()
+    public function permission()
     {
-        
+        // Set up two users, one admin and one not.
+        $admin = new \Ormic\Model\User();
+        $admin->username = 'admin';
+        $admin->save();
+        $this->assertTrue($admin->isAdmin());
+        $nonAdmin = new \Ormic\Model\User();
+        $nonAdmin->username = 'nonadmin';
+        $nonAdmin->save();
+        $this->assertFalse($nonAdmin->isAdmin());
+
+        // Start a new model.
+        $book = new Model\Book();
+        $book->setUser($nonAdmin);
+        $this->assertFalse($book->canEdit());
+        $book->setUser($admin);
+        $this->assertTrue($book->canEdit());
     }
 
 }
