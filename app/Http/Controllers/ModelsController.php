@@ -20,6 +20,7 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
             $modelClass = 'Ormic\Model\\' . $modelName;
         }
         $this->model = new $modelClass();
+        $this->model->setUser($this->user);
         $this->view->title = ucwords(str_replace('-', ' ', $modelSlug));
         $this->view->modelSlug = $modelSlug;
         $this->view->columns = $this->model->getColumns();
@@ -63,12 +64,13 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
     {
         $this->setUpModel($modelSlug);
         $model = ($id) ? $this->model->find($id) : $this->model;
-        foreach ($this->model->getAttributes() as $attr)
+        foreach ($this->model->getColumns() as $column)
         {
-            if ($attr->required()) {
-                ;
+            $colName = $column->getName();
+            if (Input::get($colName))
+            {
+                $model->$colName = Input::get($colName);
             }
-            $model->$attr = Input::get($attr);
         }
         $model->save();
         return redirect($modelSlug . '/' . $model->id);

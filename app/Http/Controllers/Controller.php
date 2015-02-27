@@ -1,17 +1,14 @@
-<?php
-
-namespace Ormic\Http\Controllers;
+<?php namespace Ormic\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\View;
 
-abstract class Controller extends BaseController
-{
+abstract class Controller extends BaseController {
 
     use DispatchesCommands,
-     ValidatesRequests;
+        ValidatesRequests;
 
     /** @var string */
     protected $currentAction;
@@ -22,6 +19,9 @@ abstract class Controller extends BaseController
     /** @var array|string SQL queries that have been executed. */
     private static $queries = array();
 
+    /** @var \Ormic\Model\User */
+    protected $user;
+
     public function __construct()
     {
         $this->currentAction = array_get(explode('@', \Route::currentRouteAction()), 1, '');
@@ -30,8 +30,8 @@ abstract class Controller extends BaseController
         View::share('alerts', \Session::get('alerts', array()));
         View::share('menu', $this->getMenu());
         View::share('logged_in', \Auth::check());
-        $user = (\Auth::check()) ? \Auth::user() : new \Ormic\Model\User();
-        View::share('user', $user);
+        $this->user = (\Auth::check()) ? \Auth::user() : new \Ormic\Model\User();
+        View::share('user', $this->user);
 
         // Standard views are at:
         // resources/views/<controller_name>/<action_name>.blade.php
@@ -39,9 +39,11 @@ abstract class Controller extends BaseController
         $controllerName = substr(array_pop($controllerPath), 0, -(strlen('Controller')));
         $viewName = ($controllerPath[1] == 'Modules') ? $controllerPath[2] . '::' : '';
         $viewName .= snake_case($controllerName) . '.' . $this->currentAction;
-        try {
+        try
+        {
             $this->view = view($viewName);
-        } catch (\InvalidArgumentException $ex) {
+        } catch (\InvalidArgumentException $ex)
+        {
             // No view file found.
             $this->view = new \Illuminate\Support\Facades\View();
         }
@@ -53,7 +55,8 @@ abstract class Controller extends BaseController
     {
         View::share('queries', self::$queries);
         \Illuminate\Support\Facades\Event::listen('illuminate.query', function($sql, $bindings) {
-            foreach ($bindings as $i => $val) {
+            foreach ($bindings as $i => $val)
+            {
                 $bindings[$i] = "'$val'";
             }
             $sql_with_bindings = array_reduce($bindings, function ($result, $item) {
@@ -71,7 +74,8 @@ abstract class Controller extends BaseController
         $fs = new \Illuminate\Filesystem\Filesystem();
         $pattern = app_path() . '/../modules/*/resources/menu.php';
         $menuFiles = $fs->glob($pattern);
-        foreach ($menuFiles as $menuFile) {
+        foreach ($menuFiles as $menuFile)
+        {
             $menu = include $menuFile;
             $out = array_merge($out, $menu);
         }
@@ -93,11 +97,13 @@ abstract class Controller extends BaseController
     protected function alert($type, $message, $flash = false)
     {
         $alert = array('type' => $type, 'message' => $message);
-        if ($flash) {
+        if ($flash)
+        {
             \Session::flash('alert', $alert);
         }
         $alerts = \View::shared('alerts', array());
         $alerts[] = $alert;
         \View::share('alerts', $alerts);
     }
+
 }

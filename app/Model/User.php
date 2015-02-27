@@ -10,14 +10,6 @@ class User extends Base implements AuthenticatableContract
 
     use Authenticatable;
 
-    public function __construct($attributes = array())
-    {
-        parent::__construct($attributes);
-        if (method_exists($this, 'onCreated')) {
-            self::created(array($this, 'onCreated'));
-        }
-    }
-
     public function onCreated($user)
     {
         if (User::count() == 1 && !$user->isAdmin()) {

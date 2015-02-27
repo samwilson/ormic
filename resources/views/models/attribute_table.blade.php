@@ -7,18 +7,18 @@
 	<?php endif ?>
 	<tbody>
 		<?php
-		foreach ($attributes as $attr): ?>
+		foreach ($columns as $column): ?>
 			<tr>
 				<th class="right">
-					<?= titlecase(($rel = $record->getRelation($attr)) ? $rel : $attr) ?>:
+					<?= titlecase(($rel = $record->getRelation($column)) ? $rel : $column) ?>:
 				</th>
 				<td>
-					<?php if ($rel = $record->getBelongsTo($attr)): ?>
+					<?php if ($rel = $record->getBelongsTo($column)): ?>
 						<a href="<?= $rel->getUrl() ?>">
-							<?= $rel->getTitle($attr) ?>
+							<?= $rel->getTitle($column) ?>
 						</a>
 					<?php else: ?>
-						<?= $record->getAttributeTitle($attr) ?>
+						<?= $record->getAttributeTitle($column) ?>
 					<?php endif ?>
 				</td>
 			</tr>

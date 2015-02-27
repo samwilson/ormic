@@ -12,6 +12,15 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
     /** @var array|Column */
     protected $columns;
 
+    public function __construct($attributes = array())
+    {
+        parent::__construct($attributes);
+        if (method_exists($this, 'onCreated'))
+        {
+            self::created(array($this, 'onCreated'));
+        }
+    }
+
     public function getHasOne()
     {
         return $this->hasOne;
@@ -22,9 +31,14 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
         return $this->hasMany;
     }
 
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * Get the columns of this Model.
-     * @return array|Attribute
+     * @return array|Column
      * @throws \Exception
      */
     public function getColumns()

@@ -4,13 +4,13 @@
 
 @include('models.subnav', ['modelSlug'=>$modelSlug, 'active'=>'view'])
 
-@include('models.attribute_table', ['attributes'=>$attributes, 'record'=>$record])
+@include('models.attribute_table', ['columns'=>$columns, 'record'=>$record])
 
 <?php foreach ($record->getHasOne() as $oneName => $oneClass): ?>
 	<?php if ($record->$oneName): ?>
 
 		@include('models.attribute_table', [
-		'attributes' => $$oneName->getAttributeNames(),
+		'columns' => $$oneName->getColumns(),
 		'record' => $record->$oneName,
 		'caption' => titlecase($oneName),
 		])

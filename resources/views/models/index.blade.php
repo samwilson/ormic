@@ -13,13 +13,13 @@
 	<thead>
 		<tr>
 			<th colspan="2"><em>Actions</em></th>
-			<?php foreach ($attributes as $attr): ?>
+			<?php foreach ($columns as $column): ?>
 				<th>
 					<?php
-					if ($rel = $record->getRelation($attr))
+					if ($rel = $record->getRelation($column))
 						echo titlecase($rel);
 					else
-						echo titlecase($attr);
+						echo titlecase($column);
 					?>
 				</th>
 			<?php endforeach ?>
@@ -34,14 +34,14 @@
 			<td>
 				<a href="<?= url($modelSlug . '/' . $record->id . '/edit') ?>">Edit</a>
 			</td>
-			<?php foreach ($attributes as $attr): ?>
+			<?php foreach ($columns as $column): ?>
 				<td>
-					<?php if ($rel = $record->getRelation($attr)): ?>
+					<?php if ($rel = $record->getRelation($column)): ?>
 						<a href="<?= $record->$rel->getUrl() ?>">
-							<?= $record->getAttributeTitle($attr) ?>
+							<?= $record->getAttributeTitle($column) ?>
 						</a>
 					<?php else: ?>
-						<?= $record->$attr ?>
+						<?= $record->$column ?>
 					<?php endif ?>
 				</td>
 			<?php endforeach ?>

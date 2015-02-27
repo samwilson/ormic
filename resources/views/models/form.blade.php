@@ -4,15 +4,18 @@
 
 @include('models.subnav', ['modelSlug'=>$modelSlug, 'active'=>$active])
 
-<form action="<?= url($action) ?>" method="post" data-abide>
+<form action="<?= url($action) ?>" method="post" data-abide class="model-form">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     <?php foreach ($columns as $column): ?>
 
-        <div class="row full-width">
+        <div class="row full-width <?php if ($column->isRequired()) echo 'required' ?>">
             <div class="medium-2 column">
                 <label class="inline" for="<?= $column ?>">
                     <?= titlecase(($rel = $record->getRelation($column)) ? $rel : $column) ?>
+                    <?php if ($column->isRequired()): ?>
+                    <abbr class="required" title="This field is required">&star;</abbr>
+                    <?php endif ?>
                 </label>
             </div>
 
@@ -25,12 +28,12 @@
                       </select> */ ?>
                 <?php else: ?>
                     <input type="text" name="<?= $column ?>" id="title"
-                    <?php if (!$column->nullable()) echo 'required' ?>
+                        <?php if ($column->isRequired()) echo 'required' ?>
                            value="<?= $record->$column ?>"
                            />
                 <?php endif ?>
 
-                    @if (!$column->nullable())
+                    @if ($column->isRequired())
                     <small class="error">This field is required.</small>
                     @endif
             </div>
