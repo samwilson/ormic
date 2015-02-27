@@ -64,6 +64,7 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
     {
         $this->setUpModel($modelSlug);
         $model = ($id) ? $this->model->find($id) : $this->model;
+        //dd($this->model->getColumns());
         foreach ($this->model->getColumns() as $column)
         {
             $colName = $column->getName();

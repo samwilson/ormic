@@ -12,6 +12,9 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
     /** @var array|Column */
     protected $columns;
 
+    /** @var User */
+    protected $user;
+
     public function __construct($attributes = array())
     {
         parent::__construct($attributes);
