@@ -6,16 +6,16 @@
 Route::get('login', 'Http\Controllers\UsersController@getLogin');
 Route::post('login', 'Http\Controllers\UsersController@postLogin');
 Route::get('logout', 'Http\Controllers\UsersController@getLogout');
-//Route::get('register', 'Http\Controllers\UsersController@getRegister');
-//Route::post('register', 'Http\Controllers\UsersController@postRegister');
+Route::get('register', 'Http\Controllers\UsersController@getRegister');
+Route::post('register', 'Http\Controllers\UsersController@postRegister');
 Route::get('admin/users', 'Http\Controllers\UsersController@admin');
 
-Route::get('{model}', 'Http\Controllers\ModelsController@index');
-Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
-Route::get('{model}/{id}', 'Http\Controllers\ModelsController@view')->where(['id' => '[0-9]+']);
-Route::get('{model}/{id}/edit', 'Http\Controllers\ModelsController@form');
-Route::post('{model}/new', 'Http\Controllers\ModelsController@save');
-Route::post('{model}/{id}', 'Http\Controllers\ModelsController@save');
+//Route::get('{model}', 'Http\Controllers\ModelsController@index');
+//Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
+//Route::get('{model}/{id}', 'Http\Controllers\ModelsController@view')->where(['id' => '[0-9]+']);
+//Route::get('{model}/{id}/edit', 'Http\Controllers\ModelsController@form');
+//Route::post('{model}/new', 'Http\Controllers\ModelsController@save');
+//Route::post('{model}/{id}', 'Http\Controllers\ModelsController@save');
 
 /**
  * Module module routes.

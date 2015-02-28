@@ -13,7 +13,7 @@
 			<input type="text" name="username" value="{{ old('username') }}" id="username" class="focus-me" />
 		</div>
 		<div class="medium-5 columns">
-			@if ($adldap_suffix)
+			@if (!empty($adldap_suffix))
 			<label class="inline" for="username">{{$adldap_suffix}}</label>
 			@endif
 		</div>

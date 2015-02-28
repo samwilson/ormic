@@ -25,6 +25,12 @@ class Install extends Migration {
             $table->string('email')->nullable();
             $table->rememberToken();
         });
+        Schema::create('user_passwords', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('password');
+        });
         Schema::create('roles', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();

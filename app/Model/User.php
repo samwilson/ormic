@@ -8,8 +8,23 @@ class User extends Base implements AuthenticatableContract {
     use Authenticatable;
 
     protected $rules = array(
-        'username' => 'unique:users'
+        'username' => 'required|unique:users'
     );
+
+    public function password()
+    {
+        return $this->hasOne('Ormic\\Model\\UserPassword');
+    }
+
+    public static function canRegister()
+    {
+        
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password->password;
+    }
 
     public function onCreated($user)
     {
