@@ -17,18 +17,7 @@ class Modules
         $this->fs = new Filesystem();
         foreach ($this->fs->directories(app_path() . '/../modules') as $dir) {
             $moduleName = basename($dir);
-            $moduleTitle = studly_case($moduleName);
-            $this->modules[$moduleTitle] = 'modules/' . $moduleName;
-        }
-    }
-
-    public function register($app)
-    {
-        foreach ($this->modules as $name => $path) {
-            $modServiceProvider = 'Ormic\\Modules\\' . $name . '\\Providers\\' . $name . 'ServiceProvider';
-            if (class_exists($modServiceProvider)) {
-                $app->register($modServiceProvider);
-            }
+            $this->modules[$moduleName] = 'modules/' . $moduleName;
         }
     }
 

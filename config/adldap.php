@@ -2,7 +2,7 @@
 
 return array(
     'account_suffix' => env('ADLDAP_SUFFIX'),
-    'domain_controllers' => array(env('ADLDAP_DC1')), // An array of domains may be provided for load balancing.
+    'domain_controllers' => array_filter(array(env('ADLDAP_DC1'))), // An array of domains may be provided for load balancing.
     'base_dn' => env('ADLDAP_BASEDN'),
     //'admin_username' => '',
     //'admin_password' => 'password',

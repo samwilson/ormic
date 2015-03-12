@@ -1,65 +1,61 @@
 @extends('app')
 
 @section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Register</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="/auth/register">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
-							</div>
-						</div>
+<form action="<?= url('register') ?>" method="post" data-abide>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
+    <div class="row full-width">
+        <div class="medium-2 columns">
+            <label class="inline" for="username">Username:</label>
+        </div>
+        <div class="medium-6 columns">
+            <input type="text" name="username" value="{{ old('username') }}" id="username" class="focus-me" required />
+            <span class="error">This field is required.</span>
+        </div>
+        <div class="medium-4 columns">
+        </div>
+    </div>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
+    <div class="row full-width">
+        <div class="medium-2 columns">
+            <label class="inline" for="email">Email:</label>
+        </div>
+        <div class="medium-6 columns">
+            <input type="text" name="email" value="{{ old('email') }}" id="email" />
+        </div>
+        <div class="medium-4 columns">
+        </div>
+    </div>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
-							</div>
-						</div>
+    <div class="row full-width">
+        <div class="medium-2 columns">
+            <label class="inline" for="password">Password:</label>
+        </div>
+        <div class="medium-3 columns">
+            <input type="password" name="password" id="password" placeholder="Enter passord" required />
+            <span class="error">This field is required.</span>
+        </div>
+        <div class="medium-3 columns">
+            <input type="password" name="password_confirmation" placeholder="Repeat password" data-equalto="password" />
+            <span class="error">This field must match the password.</span>
+        </div>
+        <div class="medium-4 columns">
+        </div>
+    </div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Register
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="row full-width">
+        <div class="medium-2 columns">
+            &nbsp;
+        </div>
+        <div class="medium-5 columns">
+            <input type="submit" class="button" value="Register" />
+        </div>
+        <div class="medium-5 columns"></div>
+    </div>
+
+</form>
+
+
 @endsection

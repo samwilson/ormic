@@ -8,7 +8,7 @@ class User extends Base implements AuthenticatableContract {
     use Authenticatable;
 
     protected $rules = array(
-        'username' => 'unique:users'
+        'username' => 'required|unique:users'
     );
 
     public function canCreate()
@@ -16,6 +16,21 @@ class User extends Base implements AuthenticatableContract {
         $isAdmin = (isset($this->user) && $this->user->isAdmin());
         $isFirst = self::count() == 0;
         return ($isAdmin || $isFirst);
+    }
+
+    public function password()
+    {
+        return $this->hasOne('Ormic\\Model\\UserPassword');
+    }
+
+    public static function canRegister()
+    {
+        
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password->password;
     }
 
     public function onCreated(User $user)
