@@ -1,7 +1,6 @@
 <?php namespace Ormic\Tests;
 
-class TestCase extends \Illuminate\Foundation\Testing\TestCase
-{
+class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 
     /**
      * Creates the application.
@@ -20,4 +19,19 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         parent::setUp();
         \Artisan::call('upgrade');
     }
+
+    /**
+     * A convienient way to get a new User object, for whatever tests need it.
+     * @return \Ormic\Model\User The 'testuser' user.
+     */
+    public function getTestUser()
+    {
+        $user = new \Ormic\Model\User();
+        $user->name = 'Test User';
+        $user->username = 'testuser';
+        $user->email = 'test@example.org';
+        $user->save();
+        return $user;
+    }
+
 }

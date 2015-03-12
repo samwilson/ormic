@@ -37,14 +37,24 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
         }
     }
 
-//    public function onUpdating($model)
-//    {
-//        return $model->canEdit();
-//    }
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(new \Ormic\Observers\Datalog());
+    }
+
+    public function getDatalog()
+    {
+        return Datalog::where('table', $this->getTable())
+            ->orderBy('date_and_time', 'DESC')
+            ->orderBy('id', 'DESC')
+            ->get();
+    }
+
 //
-//    public function onCreating($model)
+//    public function onCreating(Base $model)
 //    {
-//        return $model->canCreate();
+//        
 //    }
 
     public function canCreate()
@@ -54,7 +64,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     public function canEdit()
     {
-        return $this->user->isAdmin();
+        return (isset($this->user) && $this->user->isAdmin());
     }
 
     public function getHasOne()
@@ -72,6 +82,11 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
         $this->user = $user;
     }
 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     /**
      * Get the columns of this Model.
      * @return array|Column
@@ -87,19 +102,20 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
         switch (DB::connection()->getConfig('driver'))
         {
             case 'sqlite':
-                $query = "pragma table_info(" . $this->getTable() . ")";
+                $columnsSql = "PRAGMA TABLE_INFO(" . $this->getTable() . ")";
+                $indicesSql = "PRAGMA INDEX_LIST(" . $this->getTable() . ")";
                 $column_name = 'name';
                 $reverse = false;
                 break;
 
             case 'pgsql':
-                $query = "SELECT column_name FROM information_schema.columns WHERE table_name = '" . $this->getTable() . "'";
+                $columnsSql = "SELECT column_name FROM information_schema.columns WHERE table_name = '" . $this->getTable() . "'";
                 $column_name = 'column_name';
                 $reverse = true;
                 break;
 
             case 'mysql':
-                $query = 'SHOW FULL COLUMNS FROM ' . $this->getTable();
+                $columnsSql = 'SHOW FULL COLUMNS FROM ' . $this->getTable();
                 $column_name = 'Field';
                 $reverse = false;
                 break;
@@ -108,7 +124,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
                 $parts = explode('.', $this->getTable());
                 $num = (count($parts) - 1);
                 $table = $parts[$num];
-                $query = "SELECT column_name FROM " . DB::connection()->getConfig('database') . ".INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" . $table . "'";
+                $columnsSql = "SELECT column_name FROM " . DB::connection()->getConfig('database') . ".INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" . $table . "'";
                 $column_name = 'column_name';
                 $reverse = false;
                 break;
@@ -119,9 +135,10 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
                 break;
         }
         $this->columns = array();
-        foreach (DB::select($query) as $columnInfo)
+        $indices = DB::select($indicesSql);
+        foreach (DB::select($columnsSql) as $columnInfo)
         {
-            $column = new Column($this, $columnInfo->$column_name, $columnInfo);
+            $column = new Column($this, $columnInfo->$column_name, $columnInfo, $indices);
             $this->columns[$column->getName()] = $column;
         }
         return $this->columns;
@@ -175,9 +192,17 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     public function getTitle()
     {
-        if (isset($this->title))
+        $titleAttr = 'title';
+        foreach ($this->getColumns() as $col)
         {
-            return $this->title;
+            if ($col->isUnique())
+            {
+                $titleAttr = $col->getName();
+            }
+        }
+        if (isset($this->$titleAttr))
+        {
+            return $this->$titleAttr;
         }
         return $this->id;
     }

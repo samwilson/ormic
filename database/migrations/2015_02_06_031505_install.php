@@ -13,7 +13,7 @@ class Install extends Migration {
     public function up()
     {
         $this->users();
-        //$this->changes();
+        $this->changes();
     }
 
     private function users()
@@ -40,23 +40,34 @@ class Install extends Migration {
 
     private function changes()
     {
-        Schema::create('changesets', function(Blueprint $table) {
+//        Schema::create('changesets', function(Blueprint $table) {
+//            $table->increments('id');
+//            $table->datetime('date_and_time');
+//            $table->text('comment');
+//            $table->integer('user_id')->unsigned();
+//            $table->foreign('user_id')->references('id')->on('users');
+//        });
+//        Schema::create('changes', function(Blueprint $table) {
+//            $table->increments('id');
+//            $table->integer('changeset_id')->unsigned();
+//            $table->foreign('changeset_id')->references('id')->on('changesets');
+//            $table->string('model');
+//            $table->integer('model_pk');
+//            $table->enum('change_type', array('field', 'file', 'foreign'));
+//            $table->string('field');
+//            $table->text('old_value');
+//            $table->text('new_value');
+//        });
+        Schema::create('datalog', function(Blueprint $table) {
             $table->increments('id');
-            $table->datetime('date_and_time');
-            $table->text('comment');
+            $table->string('date_and_time');
+            $table->string('table');
+            $table->string('field');
+            $table->integer('row');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-        });
-        Schema::create('changes', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('changeset_id')->unsigned();
-            $table->foreign('changeset_id')->references('id')->on('changesets');
-            $table->string('model');
-            $table->integer('model_pk');
-            $table->enum('change_type', array('field', 'file', 'foreign'));
-            $table->string('field');
-            $table->text('old_value');
-            $table->text('new_value');
+            $table->text('old_value')->nullable();
+            $table->text('new_value')->nullable();
         });
     }
 

@@ -1,9 +1,6 @@
-<?php
+<?php namespace Ormic\Model;
 
-namespace Ormic\Model;
-
-class Role extends Base
-{
+class Role extends Base {
 
     const ADMIN_ID = 1;
 
@@ -13,4 +10,12 @@ class Role extends Base
     {
         return $this->belongsToMany('Ormic\Model\User');
     }
+
+    public function canCreate()
+    {
+        $isAdmin = (isset($this->user) && $this->user->isAdmin());
+        $isFirst = self::count() == 0;
+        return ($isAdmin || $isFirst);
+    }
+
 }

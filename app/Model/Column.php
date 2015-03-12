@@ -11,7 +11,7 @@ class Column {
     private $nullable;
     private $increments;
 
-    function __construct($model, $name, $info)
+    function __construct($model, $name, $info, $indexes)
     {
         $this->model = $model;
         $this->name = $name;
@@ -32,6 +32,17 @@ class Column {
         {
             $this->increments = (strpos($info->Extra, 'auto_increment') !== false);
         }
+
+        // Unique.
+        $indexName = $this->model->getTable() . '_' . $this->getName() . '_unique';
+        foreach ($indexes as $idx)
+        {
+            if ($idx->name == $indexName)
+            {
+                $this->unique = true;
+            }
+        }
+
 //        if (isset($info->notnull))
 //        {
 //            $this->nullable = $info->notnull === '0';
@@ -41,6 +52,11 @@ class Column {
     function increments()
     {
         return $this->increments;
+    }
+
+    public function isUnique()
+    {
+        return $this->unique;
     }
 
     /**

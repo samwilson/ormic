@@ -11,13 +11,29 @@ class User extends Base implements AuthenticatableContract {
         'username' => 'unique:users'
     );
 
-    public function onCreated($user)
+    public function canCreate()
+    {
+        $isAdmin = (isset($this->user) && $this->user->isAdmin());
+        $isFirst = self::count() == 0;
+        return ($isAdmin || $isFirst);
+    }
+
+    public function onCreated(User $user)
     {
         if (User::count() == 1 && !$user->isAdmin())
         {
-            $adminRole = Role::firstOrCreate(array('name' => 'Administrator'));
+            $attrs = array('name' => 'Administrator');
+            $adminRole = Role::where($attrs)->first();
+            if (!$adminRole)
+            {
+                $adminRole = new Role($attrs);
+                $adminRole->setUser($user);
+                $adminRole->save();
+            }
             $user->roles()->attach($adminRole->id);
         }
+
+        $user->setUser($user);
     }
 
     public function roles()

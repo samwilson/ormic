@@ -45,7 +45,8 @@ class ModelsTest extends TestCase {
      */
     public function permission()
     {
-        // Set up two users, one admin and one not.
+        // Set up two users, one admin and one not. The first created user is
+        // always an admin.
         $admin = new \Ormic\Model\User();
         $admin->username = 'admin';
         $admin->save();
