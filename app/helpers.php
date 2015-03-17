@@ -42,20 +42,25 @@ function titlecase($value, $format = 'html')
     /**
      * Marshall the correct replacement strings.
      */
-    if ($format == 'latex') {
+    if ($format == 'latex')
+    {
         $replacements = array_merge($html_replacements, $latex_replacements);
-    } else {
+    } else
+    {
         $replacements = $html_replacements;
     }
 
     /**
      * Recurse if neccessary
      */
-    if (is_array($value)) {
+    if (is_array($value))
+    {
         return array_map(array(self, 'titlecase'), $value);
-    } else {
+    } else
+    {
         $out = ucwords(preg_replace('|_|', ' ', $value));
-        foreach ($replacements as $search => $replacement) {
+        foreach ($replacements as $search => $replacement)
+        {
             $out = preg_replace("|\b$search\b|i", $replacement, $out);
         }
         return trim($out);

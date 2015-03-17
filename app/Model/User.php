@@ -25,12 +25,12 @@ class User extends Base implements AuthenticatableContract {
 
     public static function canRegister()
     {
-        
+        return true;
     }
 
     public function getAuthPassword()
     {
-        return $this->password->password;
+        return (isset($this->password->password)) ? $this->password->password : false;
     }
 
     public function onCreated(User $user)

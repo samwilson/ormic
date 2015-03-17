@@ -13,4 +13,9 @@ class Datalog extends Base {
         return true;
     }
 
+    public function user()
+    {
+        return $this->belongsTo('Ormic\Model\User');
+    }
+
 }

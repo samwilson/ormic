@@ -15,3 +15,5 @@ table tbody td { vertical-align:top }
 table tbody td.type-int { text-align:right }
 
 form.model-form abbr.required { color:#f04124; border-bottom:0 }
+
+a.disabled { cursor:not-allowed }

@@ -4,20 +4,16 @@ class Datalog {
 
     public function saved(\Ormic\Model\Base $model)
     {
+
         // Don't try to create a datalog for the datalog model!
         if ($model->getTable() == 'datalog')
         {
             return true;
         }
 
+        //dump($model->getSlug(), $model->getAttributes());
         foreach ($model->getDirty() as $field => $new_value)
         {
-            // Get the new value.
-//            if (substr($field, -3) == '_id')
-//            {
-//                $new_value = 
-//            }
-
             // Save the datalog entry.
             $datalog = new \Ormic\Model\Datalog();
             $datalog->table = $model->getTable();
@@ -25,10 +21,11 @@ class Datalog {
             $datalog->row = $model->id;
             $datalog->field = $field;
             $datalog->old_value = $model->getOriginal($field);
-            $datalog->new_value = $model->getAttributeTitle($field);//$new_value;
+            $datalog->new_value = $model->getAttributeTitle($field); //$new_value;
             $datalog->user_id = $model->getUser()->id;
             $datalog->save();
         }
+        return true;
     }
 
 }

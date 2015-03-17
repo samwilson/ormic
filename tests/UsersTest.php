@@ -59,6 +59,7 @@ class UsersTest extends TestCase {
         $user->username = 'User Name';
         $user->save();
         $role = new \Ormic\Model\Role();
+        $role->setUser($this->getTestUser());
         $role->name = 'Role Name';
         $role->save();
         $user->roles()->attach($role->id);

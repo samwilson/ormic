@@ -21,9 +21,12 @@ class DatalogTest extends TestCase {
             $table->increments('id');
             $table->string('name')->unique();
         });
+        Model\Book::observe(new \Ormic\Observers\Datalog());
+        Model\Author::observe(new \Ormic\Observers\Datalog());
     }
 
     /**
+     * @testdox The datalog tracks all changes to all models.
      * @test
      */
     public function create()
@@ -60,6 +63,10 @@ class DatalogTest extends TestCase {
         $this->assertEquals('Bill', $datalog2[0]->new_value);
     }
 
+    /**
+     * @testdox All changes are attributed to a user.
+     * @test
+     */
     public function attribution()
     {
         // Create two users.
@@ -80,36 +87,49 @@ class DatalogTest extends TestCase {
 
         // Make sure it was edited by the correct user.
         $datalog1 = $book->getDatalog();
-        $this->assetEquals(1, $datalog1[0]->user_id);
+        $this->assertEquals(1, $datalog1[0]->user_id);
 
         // Edit the record, and check the new datalog record.
         $book->setUser($user2);
         $book->title = 'Test Title';
         $book->save();
         $datalog2 = $book->getDatalog();
-        $this->assetEquals(2, $datalog2[0]->user_id);
+        $this->assertEquals(2, $datalog2[0]->user_id);
     }
 
     /**
-     * @testdox Foreign keys are handled oddly.
+     * @testdox Foreign key modifications are tracked in the datalog by their titles (rather than IDs). This means that modifications to one record's title may result in changes appearing in the datalog of other records.
      * @test
      */
     public function foreignKeyTitles()
     {
         // Set up.
         $user = $this->getTestUser();
+
+        $book1 = new Model\Book();
+        $book1->setUser($user);
+        $book1->title = 'Test Book with FK';
+        $book1->save();
+        $this->assertEquals(1, $book1->id);
+        $this->assertEquals('Test Book with FK', $book1->title);
+        $this->assertCount(2, $book1->getDatalog());
+
         // Create an author.
         $author = new Model\Author();
         $author->setUser($user);
         $author->name = 'Book Author';
         $author->save();
+        $this->assertCount(2, $author->getDatalog());
+
         // Create a book.
         $book = new Model\Book();
         $book->setUser($user);
         $book->title = 'Test Book';
         $book->author_id = $author->id;
         $book->save();
+        $this->assertCount(3, $book->getDatalog());
 
+        // Check that the recorded value for author_id was actually the title of the Author record.
         $datalog = $book->getDatalog();
         $this->assertEquals('author_id', $datalog[1]->field);
         $this->assertEquals('Book Author', $datalog[1]->new_value);

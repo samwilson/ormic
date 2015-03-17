@@ -18,4 +18,32 @@
 	<?php endif ?>
 <?php endforeach ?>
 
+<h2>Datalog</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date and time</th>
+            <th>User</th>
+            <th>Field</th>
+            <th>Old value</th>
+            <th></th>
+            <th>New value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($datalog as $datum)
+        <tr>
+            <td>{{$datum->id}}</td>
+            <td>{{$datum->date_and_time}}</td>
+            <td>{{$datum->user->name}}</td>
+            <td>{{titlecase($datum->field)}}</td>
+            <td>{{$datum->old_value}}</td>
+            <td>&rArr;</td>
+            <td>{{$datum->new_value}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
 @stop

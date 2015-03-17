@@ -9,7 +9,11 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     /** @var boolean */
     public $timestamps = false;
-    protected $hasOne = array();
+
+    /** @var array|string */
+    protected static $hasOne = array();
+
+    /** @var array|string */
     protected $hasMany = array();
 
     /** @var array|Column */
@@ -20,10 +24,20 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     /** @var array|string */
     protected $rules;
+    protected static $datalogObserver;
 
     public function __construct($attributes = array())
     {
         parent::__construct($attributes);
+
+//        if (is_null(self::$datalogObserver))
+//        {
+//            self::$datalogObserver = new \Ormic\Observers\Datalog();
+//        }
+//        if (get_called_class() != 'Ormic\\Model\\Datalog')
+//        {
+//            self::observe(self::$datalogObserver);
+//        }
         // 'creating', 'created', 'updating', 'updated',
         // 'deleting', 'deleted', 'saving', 'saved',
         // 'restoring', 'restored',
@@ -37,15 +51,46 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
         }
     }
 
-    public static function boot()
+//    public static function boot()
+//    {
+//        parent::boot();
+//        if (!static::$datalogObserver) {
+//            static::$datalogObserver = new \Ormic\Observers\Datalog();
+//        }
+//        static::observe();
+//    }
+
+    public function save(array $options = array())
     {
-        parent::boot();
-        self::observe(new \Ormic\Observers\Datalog());
+        // The User model is the only one that can be saved without 
+        $anonModels = array(
+            'Ormic\\Model\\User',
+            'Ormic\\Model\\Datalog',
+        );
+        if (!$this->getUser() && !in_array(get_called_class(), $anonModels))
+        {
+            throw new \Exception('User not set when saving ' . get_called_class());
+        }
+        parent::save($options);
+    }
+
+    public static function firstOrCreate(array $attributes, \Ormic\Model\User $user = null)
+    {
+        if (!is_null($instance = static::where($attributes)->first()))
+        {
+            $instance->setUser($user);
+            return $instance;
+        }
+        $model = new static($attributes);
+        $model->setUser($user);
+        $model->save();
+        return $model;
     }
 
     public function getDatalog()
     {
         return Datalog::where('table', $this->getTable())
+            ->where('row', $this->id)
             ->orderBy('date_and_time', 'DESC')
             ->orderBy('id', 'DESC')
             ->get();
@@ -64,12 +109,12 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     public function canEdit()
     {
-        return (isset($this->user) && $this->user->isAdmin());
+        return ($this->getUser() && $this->getUser()->isAdmin());
     }
 
     public function getHasOne()
     {
-        return $this->hasOne;
+        return self::$hasOne;
     }
 
     public function getHasMany()
@@ -84,6 +129,10 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     public function getUser()
     {
+        if (!$this->user)
+        {
+            $this->user = \Auth::user();
+        }
         return $this->user;
     }
 
@@ -135,7 +184,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
                 break;
         }
         $this->columns = array();
-        $indices = DB::select($indicesSql);
+        $indices = (isset($indicesSql)) ? DB::select($indicesSql) : [];
         foreach (DB::select($columnsSql) as $columnInfo)
         {
             $column = new Column($this, $columnInfo->$column_name, $columnInfo, $indices);
@@ -188,6 +237,11 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
             return substr($attr, 0, -3);
         }
         return false;
+    }
+
+    public function getSlug()
+    {
+        return str_slug(str_plural(snake_case(class_basename($this), ' ')));
     }
 
     public function getTitle()

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider {
             }
 
             $viewDir = app_path().'/../'.$path . '/resources/views';
-            $this->loadViewsFrom($viewDir, $name);
+            $this->loadViewsFrom($viewDir, snake_case($name));
         }
     }
 

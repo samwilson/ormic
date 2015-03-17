@@ -1,7 +1,5 @@
 <?php
-
 //Route::get('', 'Http\Controllers\HomeController@index');
-
 // Users
 Route::get('login', 'Http\Controllers\UsersController@getLogin');
 Route::post('login', 'Http\Controllers\UsersController@postLogin');
@@ -10,31 +8,38 @@ Route::get('register', 'Http\Controllers\UsersController@getRegister');
 Route::post('register', 'Http\Controllers\UsersController@postRegister');
 Route::get('admin/users', 'Http\Controllers\UsersController@admin');
 
-//Route::get('{model}', 'Http\Controllers\ModelsController@index');
-//Route::get('{model}/new', 'Http\Controllers\ModelsController@form');
-//Route::get('{model}/{id}', 'Http\Controllers\ModelsController@view')->where(['id' => '[0-9]+']);
-//Route::get('{model}/{id}/edit', 'Http\Controllers\ModelsController@form');
-//Route::post('{model}/new', 'Http\Controllers\ModelsController@save');
-//Route::post('{model}/{id}', 'Http\Controllers\ModelsController@save');
-
 /**
  * Module module routes.
  */
-//$mods = new \Ormic\Modules();
-//foreach ($mods->getModels() as $className => $moduleName) {
-//	$plural = str_plural($className);
-//	if ($moduleName) {
-//		$controllerClass = 'Modules\\' . $moduleName . '\Http\Controllers\\' . $plural . 'Controller';
-//		// If the module doesn't have a controller for that model, use the generic one.
-//		if (!class_exists(''.$controllerClass)) {
-//			$controllerClass = 'Http\Controllers\ModelController';
-//		}
-//	} else {
-//		$controllerClass = 'Http\Controllers\\' . $plural . 'Controller';
-//	}
-//	var_dump($controllerClass);
-//	Route::resource(snake_case($plural), $controllerClass);
-//}
+$mods = new \Ormic\Modules();
+foreach ($mods->getModels() as $className => $moduleName)
+{
+    // Ignore various model classes.
+    if (in_array($className, array('Datalog', 'Column', 'Base')))
+    {
+        continue;
+    }
+
+    $plural = str_plural($className);
+    if ($moduleName)
+    {
+        $controllerClass = 'modules\\' . $moduleName . '\Http\Controllers\\' . $plural . 'Controller';
+    } else
+    {
+        $controllerClass = 'Http\Controllers\\' . $plural . 'Controller';
+    }
+    if (!class_exists('Ormic\\'.$controllerClass))
+    {
+        $controllerClass = 'Http\Controllers\ModelsController';
+    }
+    $slug = str_slug(snake_case($plural, ' '));
+    Route::get("$slug", $controllerClass . '@index');
+    Route::get("$slug/new", $controllerClass . '@form');
+    Route::get("$slug/{id}", $controllerClass . '@view')->where(['id' => '[0-9]+']);
+    Route::get("$slug/{id}/edit", $controllerClass . '@form');
+    Route::post("$slug/new", $controllerClass . '@save');
+    Route::post("$slug/{id}", $controllerClass . '@save');
+}
 
 /*
   Verb			Path						Action		Route Name

@@ -20,17 +20,27 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase {
         \Artisan::call('upgrade');
     }
 
+    public function tearDown()
+    {
+        \DB::disconnect();
+        parent::tearDown();
+    }
+
     /**
      * A convienient way to get a new User object, for whatever tests need it.
      * @return \Ormic\Model\User The 'testuser' user.
      */
     public function getTestUser()
     {
-        $user = new \Ormic\Model\User();
-        $user->name = 'Test User';
-        $user->username = 'testuser';
-        $user->email = 'test@example.org';
-        $user->save();
+        $user = \Ormic\Model\User::find(1);
+        if (!$user)
+        {
+            $user = new \Ormic\Model\User();
+            $user->name = 'Test User';
+            $user->username = 'testuser';
+            $user->email = 'test@example.org';
+            $user->save();
+        }
         return $user;
     }
 

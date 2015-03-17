@@ -35,22 +35,28 @@ abstract class Controller extends BaseController {
 
         // Standard views are at:
         // resources/views/<controller_name>/<action_name>.blade.php
+        $this->view = $this->getView();
+
+        if (getenv('APP_ENV') == 'local')
+        {
+            $this->queryListener();
+        }
+    }
+
+    protected function getView()
+    {
         $controllerPath = explode('\\', get_called_class());
         $controllerName = substr(array_pop($controllerPath), 0, -(strlen('Controller')));
-        $viewName = ($controllerPath[1] == 'Modules') ? $controllerPath[2] . '::' : '';
+        $viewName = ($controllerPath[1] == 'modules') ? snake_case($controllerPath[2]) . '::' : '';
         $viewName .= snake_case($controllerName) . '.' . $this->currentAction;
         try
         {
-            $this->view = view($viewName);
+            return view($viewName);
         } catch (\InvalidArgumentException $ex)
         {
             // No view file found.
-            $this->view = new \Illuminate\Support\Facades\View();
-        }
-
-        if (getenv('APP_ENV') == 'development')
-        {
-            $this->queryListener();
+            //throw new \Exception("View not found: $viewName", 500, $ex);
+            return false;
         }
     }
 
@@ -74,10 +80,8 @@ abstract class Controller extends BaseController {
     private function getMenu()
     {
         $out = array();
-        $fs = new \Illuminate\Filesystem\Filesystem();
-        $pattern = app_path() . '/../modules/*/resources/menu.php';
-        $menuFiles = $fs->glob($pattern);
-        foreach ($menuFiles as $menuFile)
+        $modules = new \Ormic\Modules();
+        foreach ($modules->files('resources/menu.php') as $menuFile)
         {
             $menu = include $menuFile;
             $out = array_merge($out, $menu);
