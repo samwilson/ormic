@@ -12,11 +12,11 @@ class ModelsTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        Schema::create('authors', function(Blueprint $table) {
+        Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
         });
-        Schema::create('books', function(Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
         });

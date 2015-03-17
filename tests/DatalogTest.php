@@ -12,13 +12,13 @@ class DatalogTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        Schema::create('books', function(Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique();
             $table->integer('author_id')->nullable();
             $table->foreign('author_id')->references('id')->on('authors');
         });
-        Schema::create('authors', function(Blueprint $table) {
+        Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
         });
@@ -99,7 +99,9 @@ class DatalogTest extends TestCase
     }
 
     /**
-     * @testdox Foreign key modifications are tracked in the datalog by their titles (rather than IDs). This means that modifications to one record's title may result in changes appearing in the datalog of other records.
+     * @testdox Foreign key modifications are tracked in the datalog by their titles (rather than IDs).
+     * This means that modifications to one record's title may result in changes appearing in the datalog of other
+     * records.
      * @test
      */
     public function foreignKeyTitles()
