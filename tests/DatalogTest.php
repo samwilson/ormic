@@ -6,7 +6,8 @@ use Illuminate\Database\Schema\Blueprint;
 /**
  * @group ormic
  */
-class DatalogTest extends TestCase {
+class DatalogTest extends TestCase
+{
 
     public function setUp()
     {
@@ -134,5 +135,4 @@ class DatalogTest extends TestCase {
         $this->assertEquals('author_id', $datalog[1]->field);
         $this->assertEquals('Book Author', $datalog[1]->new_value);
     }
-
 }

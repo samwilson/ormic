@@ -1,3 +1,3 @@
 #!/bin/bash
-
-./vendor/bin/phpcs --report=full --extensions=php --ignore=vendor,*.blade.php --standard=PSR2 .
+echo "Checking PSR2 compliance..."
+./vendor/bin/phpcs --report=full --extensions=php --ignore="vendor,*.blade.php" --standard=PSR2 .

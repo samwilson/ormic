@@ -6,7 +6,8 @@ use Illuminate\Database\Schema\Blueprint;
 /**
  * @group ormic
  */
-class ModelsTest extends TestCase {
+class ModelsTest extends TestCase
+{
 
     public function setUp()
     {
@@ -63,5 +64,4 @@ class ModelsTest extends TestCase {
         $book->setUser($admin);
         $this->assertTrue($book->canEdit());
     }
-
 }

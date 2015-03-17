@@ -5,7 +5,8 @@ use Ormic\Model\User;
 /**
  * @group ormic
  */
-class UsersTest extends TestCase {
+class UsersTest extends TestCase
+{
 
     /**
      * @testdox A User has a name, email address, and username.
@@ -101,5 +102,4 @@ class UsersTest extends TestCase {
 
         $this->assertEquals(2, User::count());
     }
-
 }

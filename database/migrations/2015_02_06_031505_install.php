@@ -3,7 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Install extends Migration {
+class Install extends Migration
+{
 
     /**
      * Run the migrations.
@@ -88,5 +89,4 @@ class Install extends Migration {
         Schema::dropIfExists('users');
         Schema::dropIfExists('roles');
     }
-
 }

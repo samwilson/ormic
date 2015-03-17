@@ -5,12 +5,12 @@
     "type": "project",
     "require": {
         "laravel/framework": "5.0.*",
-        "stevebauman/adldap-fork": "4.0.*"
+        "stevebauman/adldap-fork": "4.0.*",
+        "watson/validating": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "4.4.*",
-        "squizlabs/php_codesniffer": "2.*",
-        "watson/validating": "dev-master"
+        "squizlabs/php_codesniffer": "2.*"
     },
     "autoload": {
         "classmap": [
