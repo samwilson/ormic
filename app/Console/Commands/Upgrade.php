@@ -1,6 +1,4 @@
-<?php
-
-namespace Ormic\Console\Commands;
+<?php namespace Ormic\Console\Commands;
 
 class Upgrade extends \Illuminate\Console\Command
 {

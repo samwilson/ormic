@@ -16,9 +16,7 @@ class BusServiceProvider extends ServiceProvider
     {
         $dispatcher->mapUsing(function($command) {
             return Dispatcher::simpleMapping(
-                $command,
-                'Ormic\Commands',
-                'Ormic\Handlers\Commands'
+                $command, 'Ormic\Commands', 'Ormic\Handlers\Commands'
             );
         });
     }

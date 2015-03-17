@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\DB;
 use Watson\Validating\ValidatingTrait;
 
-abstract class Base extends \Illuminate\Database\Eloquent\Model {
+abstract class Base extends \Illuminate\Database\Eloquent\Model
+{
 
     use ValidatingTrait;
 
@@ -41,11 +42,9 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
         // 'creating', 'created', 'updating', 'updated',
         // 'deleting', 'deleted', 'saving', 'saved',
         // 'restoring', 'restored',
-        foreach ($this->getObservableEvents() as $event)
-        {
+        foreach ($this->getObservableEvents() as $event) {
             $methodName = 'on' . camel_case($event);
-            if (method_exists($this, $methodName))
-            {
+            if (method_exists($this, $methodName)) {
                 self::$event(array($this, $methodName));
             }
         }
@@ -67,8 +66,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
             'Ormic\\Model\\User',
             'Ormic\\Model\\Datalog',
         );
-        if (!$this->getUser() && !in_array(get_called_class(), $anonModels))
-        {
+        if (!$this->getUser() && !in_array(get_called_class(), $anonModels)) {
             throw new \Exception('User not set when saving ' . get_called_class());
         }
         parent::save($options);
@@ -76,8 +74,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     public static function firstOrCreate(array $attributes, \Ormic\Model\User $user = null)
     {
-        if (!is_null($instance = static::where($attributes)->first()))
-        {
+        if (!is_null($instance = static::where($attributes)->first())) {
             $instance->setUser($user);
             return $instance;
         }
@@ -129,8 +126,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
 
     public function getUser()
     {
-        if (!$this->user)
-        {
+        if (!$this->user) {
             $this->user = \Auth::user();
         }
         return $this->user;
@@ -143,13 +139,11 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
      */
     public function getColumns()
     {
-        if ($this->columns)
-        {
+        if ($this->columns) {
             return $this->columns;
         }
 
-        switch (DB::connection()->getConfig('driver'))
-        {
+        switch (DB::connection()->getConfig('driver')) {
             case 'sqlite':
                 $columnsSql = "PRAGMA TABLE_INFO(" . $this->getTable() . ")";
                 $indicesSql = "PRAGMA INDEX_LIST(" . $this->getTable() . ")";
@@ -185,8 +179,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
         }
         $this->columns = array();
         $indices = (isset($indicesSql)) ? DB::select($indicesSql) : [];
-        foreach (DB::select($columnsSql) as $columnInfo)
-        {
+        foreach (DB::select($columnsSql) as $columnInfo) {
             $column = new Column($this, $columnInfo->$column_name, $columnInfo, $indices);
             $this->columns[$column->getName()] = $column;
         }
@@ -197,11 +190,9 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
     {
         $value = $this->$attribute;
         $relation = $this->getRelation($attribute);
-        if ($relation && $this->$relation)
-        {
+        if ($relation && $this->$relation) {
             $title = $this->$relation->getTitle();
-        } else
-        {
+        } else {
             $title = $value;
         }
         return $title;
@@ -213,8 +204,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
      */
     public function getBelongsTo($attr)
     {
-        if (substr($attr, -3) == '_id')
-        {
+        if (substr($attr, -3) == '_id') {
             $relationName = substr($attr, 0, -3);
             return $this->$relationName;
         }
@@ -232,8 +222,7 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
      */
     public function getRelation($attr)
     {
-        if (substr($attr, -3) == '_id')
-        {
+        if (substr($attr, -3) == '_id') {
             return substr($attr, 0, -3);
         }
         return false;
@@ -247,15 +236,12 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
     public function getTitle()
     {
         $titleAttr = 'title';
-        foreach ($this->getColumns() as $col)
-        {
-            if ($col->isUnique())
-            {
+        foreach ($this->getColumns() as $col) {
+            if ($col->isUnique()) {
                 $titleAttr = $col->getName();
             }
         }
-        if (isset($this->$titleAttr))
-        {
+        if (isset($this->$titleAttr)) {
             return $this->$titleAttr;
         }
         return $this->id;
@@ -287,10 +273,8 @@ abstract class Base extends \Illuminate\Database\Eloquent\Model {
     public function setBelongsTo($rel, $title)
     {
         $exists = $this->$rel->first();
-        if (!$exists->id)
-        {
+        if (!$exists->id) {
             
         }
     }
-
 }

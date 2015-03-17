@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider {
+class AppServiceProvider extends ServiceProvider
+{
 
     /**
      * Register any application services.
@@ -20,17 +21,14 @@ class AppServiceProvider extends ServiceProvider {
         );
 
         $modules = new \Ormic\Modules();
-        foreach ($modules->getAll() as $name => $path)
-        {
+        foreach ($modules->getAll() as $name => $path) {
             $modServiceProvider = 'Ormic\\modules\\' . $name . '\\Providers\\' . studly_case($name) . 'ServiceProvider';
-            if (class_exists($modServiceProvider))
-            {
+            if (class_exists($modServiceProvider)) {
                 $this->app->register($modServiceProvider);
             }
 
-            $viewDir = app_path().'/../'.$path . '/resources/views';
+            $viewDir = app_path() . '/../' . $path . '/resources/views';
             $this->loadViewsFrom($viewDir, snake_case($name));
         }
     }
-
 }

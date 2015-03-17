@@ -2,7 +2,8 @@
 
 use \Illuminate\Support\Facades\Input;
 
-class ModelsController extends \Ormic\Http\Controllers\Controller {
+class ModelsController extends \Ormic\Http\Controllers\Controller
+{
 
     /** @var \Ormic\Model\Base */
     protected $model;
@@ -14,28 +15,22 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
         $modelName = ucfirst(camel_case(str_singular($modelSlug)));
         $modules = new \Ormic\Modules();
         $module = $modules->getModuleOfModel($modelName);
-        if ($module)
-        {
+        if ($module) {
             $modelClass = 'Ormic\modules\\' . $module . '\Model\\' . $modelName;
             $viewName = snake_case($module) . '::' . snake_case($modelName) . '.' . $this->currentAction;
-        } else
-        {
+        } else {
             $modelClass = 'Ormic\Model\\' . $modelName;
             $viewName = snake_case($modelName) . '.' . $this->currentAction;
         }
         $this->model = new $modelClass();
         $this->model->setUser($this->user);
 
-        try
-        {
+        try {
             $this->view = view($viewName);
-        } catch (\InvalidArgumentException $ex)
-        {
-            try
-            {
+        } catch (\InvalidArgumentException $ex) {
+            try {
                 $this->view = view('models.' . $this->currentAction);
-            } catch (\InvalidArgumentException $ex)
-            {
+            } catch (\InvalidArgumentException $ex) {
                 // Still no view; give up.
                 $this->view = view();
             }
@@ -58,8 +53,7 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
         $this->setUpModel($request);
         $this->view->record = $this->model->find($id);
         $this->view->record->setUser($this->user);
-        foreach ($this->model->getHasOne() as $oneName => $oneClass)
-        {
+        foreach ($this->model->getHasOne() as $oneName => $oneClass) {
             $this->view->$oneName = new $oneClass();
         }
         $this->view->datalog = $this->view->record->getDatalog();
@@ -73,19 +67,18 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
         $this->view->action = $this->model->getSlug() . '/new';
         $this->view->record = $this->model;
         $this->view->record->setUser($this->user);
-        if ($id)
-        {
+        if ($id) {
             $this->view->record = $this->model->find($id);
             $this->view->record->setUser($this->user);
             $this->view->active = 'edit';
             $this->view->action = $this->model->getSlug() . '/' . $this->view->record->id;
-            if (!$this->view->record->canEdit())
-            {
+            if (!$this->view->record->canEdit()) {
                 $this->alert('warning', 'You are not permitted to edit this record.');
             }
-        } elseif (!$this->view->record->canCreate())
-        {
-            $this->alert('warning', 'You are not permitted to create new ' . titlecase(snake_case($this->model->getSlug(), ' ')) . ' records.');
+        } elseif (!$this->view->record->canCreate()) {
+            $msg = 'You are not permitted to create new '
+              . titlecase(snake_case($this->model->getSlug(), ' ')) . ' records.';
+            $this->alert('warning', $msg);
         }
 
         return $this->view;
@@ -96,31 +89,24 @@ class ModelsController extends \Ormic\Http\Controllers\Controller {
         $this->setUpModel($request);
         $model = ($id) ? $this->model->find($id) : $this->model;
         $model->setUser($this->user);
-        if ($model->id && !$model->canEdit())
-        {
+        if ($model->id && !$model->canEdit()) {
             throw new \Exception('Editing denied.');
         }
-        if (!$model->id && !$model->canCreate())
-        {
+        if (!$model->id && !$model->canCreate()) {
             throw new \Exception('Creating denied.');
         }
-        foreach ($this->model->getColumns() as $column)
-        {
+        foreach ($this->model->getColumns() as $column) {
             $colName = $column->getName();
-            if (Input::get($colName))
-            {
+            if (Input::get($colName)) {
                 $model->$colName = Input::get($colName);
             }
         }
-        if (!$model->save())
-        {
-            foreach ($model->getErrors() as $err)
-            {
+        if (!$model->save()) {
+            foreach ($model->getErrors() as $err) {
                 $this->alert('warning', $err);
             }
         }
         $this->alert('success', "Data saved successfully.", true);
         return redirect($this->model->getSlug() . '/' . $model->id);
     }
-
 }

@@ -34,8 +34,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     public function getTestUser()
     {
         $user = \Ormic\Model\User::find(1);
-        if (!$user)
-        {
+        if (!$user) {
             $user = new \Ormic\Model\User();
             $user->name = 'Test User';
             $user->username = 'testuser';

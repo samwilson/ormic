@@ -1,6 +1,4 @@
-<?php
-
-namespace Ormic\Console;
+<?php namespace Ormic\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -16,7 +14,6 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'Ormic\Console\Commands\Upgrade',
     ];
-
     /**
      * Define the application's command schedule.
      *

@@ -1,19 +1,17 @@
 <?php namespace Ormic\Observers;
 
-class Datalog {
+class Datalog
+{
 
     public function saved(\Ormic\Model\Base $model)
     {
 
         // Don't try to create a datalog for the datalog model!
-        if ($model->getTable() == 'datalog')
-        {
+        if ($model->getTable() == 'datalog') {
             return true;
         }
 
-        //dump($model->getSlug(), $model->getAttributes());
-        foreach ($model->getDirty() as $field => $new_value)
-        {
+        foreach ($model->getDirty() as $field => $new_value) {
             // Save the datalog entry.
             $datalog = new \Ormic\Model\Datalog();
             $datalog->table = $model->getTable();
@@ -27,5 +25,4 @@ class Datalog {
         }
         return true;
     }
-
 }

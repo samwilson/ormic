@@ -1,6 +1,7 @@
 <?php namespace Ormic\Model;
 
-class Datalog extends Base {
+class Datalog extends Base
+{
 
     protected $table = 'datalog';
 
@@ -17,5 +18,4 @@ class Datalog extends Base {
     {
         return $this->belongsTo('Ormic\Model\User');
     }
-
 }

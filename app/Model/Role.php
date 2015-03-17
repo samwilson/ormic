@@ -1,6 +1,7 @@
 <?php namespace Ormic\Model;
 
-class Role extends Base {
+class Role extends Base
+{
 
     const ADMIN_ID = 1;
 
@@ -17,5 +18,4 @@ class Role extends Base {
         $isFirst = self::count() == 0;
         return ($isAdmin || $isFirst);
     }
-
 }

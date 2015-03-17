@@ -5,7 +5,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\View;
 
-abstract class Controller extends BaseController {
+abstract class Controller extends BaseController
+{
 
     use DispatchesCommands,
         ValidatesRequests;
@@ -37,8 +38,7 @@ abstract class Controller extends BaseController {
         // resources/views/<controller_name>/<action_name>.blade.php
         $this->view = $this->getView();
 
-        if (getenv('APP_ENV') == 'local')
-        {
+        if (getenv('APP_ENV') == 'local') {
             $this->queryListener();
         }
     }
@@ -49,11 +49,9 @@ abstract class Controller extends BaseController {
         $controllerName = substr(array_pop($controllerPath), 0, -(strlen('Controller')));
         $viewName = ($controllerPath[1] == 'modules') ? snake_case($controllerPath[2]) . '::' : '';
         $viewName .= snake_case($controllerName) . '.' . $this->currentAction;
-        try
-        {
+        try {
             return view($viewName);
-        } catch (\InvalidArgumentException $ex)
-        {
+        } catch (\InvalidArgumentException $ex) {
             // No view file found.
             //throw new \Exception("View not found: $viewName", 500, $ex);
             return false;
@@ -64,8 +62,7 @@ abstract class Controller extends BaseController {
     {
         View::share('queries', self::$queries);
         \Illuminate\Support\Facades\Event::listen('illuminate.query', function($sql, $bindings) {
-            foreach ($bindings as $i => $val)
-            {
+            foreach ($bindings as $i => $val) {
                 $bindings[$i] = "'$val'";
             }
             $sql_with_bindings = array_reduce($bindings, function ($result, $item) {
@@ -81,8 +78,7 @@ abstract class Controller extends BaseController {
     {
         $out = array();
         $modules = new \Ormic\Modules();
-        foreach ($modules->files('resources/menu.php') as $menuFile)
-        {
+        foreach ($modules->files('resources/menu.php') as $menuFile) {
             $menu = include $menuFile;
             $out = array_merge($out, $menu);
         }
@@ -104,13 +100,11 @@ abstract class Controller extends BaseController {
     protected function alert($type, $message, $flash = false)
     {
         $alert = array('type' => $type, 'message' => $message);
-        if ($flash)
-        {
+        if ($flash) {
             \Session::flash('alert', $alert);
         }
         $alerts = \View::shared('alerts', array());
         $alerts[] = $alert;
         \View::share('alerts', $alerts);
     }
-
 }

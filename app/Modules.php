@@ -2,7 +2,8 @@
 
 use Illuminate\Filesystem\Filesystem;
 
-class Modules {
+class Modules
+{
 
     private $modules = array();
 
@@ -12,18 +13,15 @@ class Modules {
     public function __construct()
     {
         $this->fs = new Filesystem();
-        foreach ($this->fs->directories(app_path() . '/../modules') as $dir)
-        {
+        foreach ($this->fs->directories(app_path() . '/../modules') as $dir) {
             $moduleName = basename($dir);
             $metafile = $dir . '/module.json';
             $meta = new \stdClass();
             $meta->disabled = false;
-            if (file_exists($metafile))
-            {
+            if (file_exists($metafile)) {
                 $meta = json_decode(file_get_contents($metafile));
             }
-            if (!$meta->disabled)
-            {
+            if (!$meta->disabled) {
                 $this->modules[$moduleName] = 'modules/' . $moduleName;
             }
         }
@@ -36,8 +34,7 @@ class Modules {
     public function files($filepath)
     {
         $out = array();
-        foreach ($this->modules as $dir)
-        {
+        foreach ($this->modules as $dir) {
             $files = $this->fs->glob(app_path() . "/../$dir/$filepath");
             $out = array_merge($out, $files);
         }
@@ -59,17 +56,14 @@ class Modules {
         $out = array();
 
         // First get the core model classes.
-        foreach ($this->fs->files(app_path() . "/Model") as $f)
-        {
+        foreach ($this->fs->files(app_path() . "/Model") as $f) {
             $className = $this->classNameFromFile($f, $fullClass);
             $out[$className] = '';
         }
 
         // Then get the modules' model classes.
-        foreach ($this->getAll() as $name => $path)
-        {
-            foreach ($this->fs->files(app_path() . "/../$path/Model") as $f)
-            {
+        foreach ($this->getAll() as $name => $path) {
+            foreach ($this->fs->files(app_path() . "/../$path/Model") as $f) {
                 $className = $this->classNameFromFile($f, $fullClass);
                 $out[$className] = basename($path); // 'Ormic\\' . studly_case($name) . '\Model\\' . $className;
             }
@@ -85,10 +79,8 @@ class Modules {
      */
     public function getModuleOfModel($modelName)
     {
-        foreach ($this->getModels() as $model => $module)
-        {
-            if ($modelName == $model)
-            {
+        foreach ($this->getModels() as $model => $module) {
+            if ($modelName == $model) {
                 return basename($module);
             }
         }
@@ -101,12 +93,10 @@ class Modules {
         //$baseClass = substr(basename($filename), 0, -4);
         $moduleName = 'x';
         $className = substr(realpath($filename), strlen($basePath) + 1, -4);
-        if (starts_with($className, 'app'))
-        {
+        if (starts_with($className, 'app')) {
             $className = substr($className, 4);
         }
         $className = 'Ormic\\' . $className;
         return ($full) ? $className : basename($className);
     }
-
 }

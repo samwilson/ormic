@@ -1,6 +1,7 @@
 <?php namespace Ormic\Model;
 
-class Column {
+class Column
+{
 
     private $model;
     private $name;
@@ -11,34 +12,29 @@ class Column {
     private $nullable;
     private $increments;
 
-    function __construct($model, $name, $info, $indexes)
+    public function __construct($model, $name, $info, $indexes)
     {
         $this->model = $model;
         $this->name = $name;
         $this->info = $info;
 
         // Nullable.
-        if (isset($info->Null))
-        {
+        if (isset($info->Null)) {
             $this->nullable = strtoupper($info->Null) === 'YES';
         }
-        if (isset($info->notnull))
-        {
+        if (isset($info->notnull)) {
             $this->nullable = $info->notnull === '0';
         }
 
         // Increments.
-        if (isset($info->Extra))
-        {
+        if (isset($info->Extra)) {
             $this->increments = (strpos($info->Extra, 'auto_increment') !== false);
         }
 
         // Unique.
         $indexName = $this->model->getTable() . '_' . $this->getName() . '_unique';
-        foreach ($indexes as $idx)
-        {
-            if ($idx->name == $indexName)
-            {
+        foreach ($indexes as $idx) {
+            if ($idx->name == $indexName) {
                 $this->unique = true;
             }
         }
@@ -49,7 +45,7 @@ class Column {
 //        }
     }
 
-    function increments()
+    public function increments()
     {
         return $this->increments;
     }
@@ -89,5 +85,4 @@ class Column {
     {
         return $this->nullable;
     }
-
 }

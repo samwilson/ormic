@@ -12,24 +12,19 @@ Route::get('admin/users', 'Http\Controllers\UsersController@admin');
  * Module module routes.
  */
 $mods = new \Ormic\Modules();
-foreach ($mods->getModels() as $className => $moduleName)
-{
+foreach ($mods->getModels() as $className => $moduleName) {
     // Ignore various model classes.
-    if (in_array($className, array('Datalog', 'Column', 'Base')))
-    {
+    if (in_array($className, array('Datalog', 'Column', 'Base'))) {
         continue;
     }
 
     $plural = str_plural($className);
-    if ($moduleName)
-    {
+    if ($moduleName) {
         $controllerClass = 'modules\\' . $moduleName . '\Http\Controllers\\' . $plural . 'Controller';
-    } else
-    {
+    } else {
         $controllerClass = 'Http\Controllers\\' . $plural . 'Controller';
     }
-    if (!class_exists('Ormic\\'.$controllerClass))
-    {
+    if (!class_exists('Ormic\\' . $controllerClass)) {
         $controllerClass = 'Http\Controllers\ModelsController';
     }
     $slug = str_slug(snake_case($plural, ' '));
