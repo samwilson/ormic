@@ -22,6 +22,11 @@ class Datalog
             $datalog->new_value = $model->getAttributeTitle($field); //$new_value;
             $datalog->user_id = $model->getUser()->id;
             $datalog->save();
+
+            // Save additional entries if this field is the title.
+//            foreach ($model->get) {
+//                
+//            }
         }
         return true;
     }

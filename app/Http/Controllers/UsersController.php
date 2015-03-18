@@ -12,7 +12,8 @@ class UsersController extends Controller
     {
         $view = view('users.login');
         $view->title = 'Log in';
-        if (!empty(\Config::get('adldap.domain_controllers'))) {
+        $domain_controllers = \Config::get('adldap.domain_controllers');
+        if ($domain_controllers) {
             $view->adldap_suffix = \Config::get('adldap.account_suffix');
         }
         $view->canRegister = User::canRegister();
