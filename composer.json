@@ -4,8 +4,9 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "laravel/framework": "5.0.*",
-        "stevebauman/adldap-fork": "4.0.*",
+        "laravel/framework": "5.",
+        "adldap2/adldap2": "*",
+        "adldap2/adldap2-laravel": "*",
         "watson/validating": "dev-master"
     },
     "require-dev": {

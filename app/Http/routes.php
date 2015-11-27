@@ -1,5 +1,5 @@
 <?php
-//Route::get('', 'Http\Controllers\HomeController@index');
+Route::get('', 'Http\Controllers\HomeController@index');
 // Users
 Route::get('login', 'Http\Controllers\UsersController@getLogin');
 Route::post('login', 'Http\Controllers\UsersController@postLogin');
